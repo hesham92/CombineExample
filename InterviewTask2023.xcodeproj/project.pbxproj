@@ -7,22 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C428E4912983F14200417489 /* ResturantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C428E4902983F14200417489 /* ResturantView.swift */; };
-		C428E4992984028100417489 /* RestaurantDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C428E4982984028100417489 /* RestaurantDetailsViewController.swift */; };
-		C428E49B298402E700417489 /* RestaurantDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C428E49A298402E700417489 /* RestaurantDetailsPresenter.swift */; };
 		C428E4A329843BBA00417489 /* MockError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C428E49F29843BBA00417489 /* MockError.swift */; };
 		C428E4A529843BBA00417489 /* Repo+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C428E4A129843BBA00417489 /* Repo+Mock.swift */; };
-		C45E5DCB29830D0000ECEFA8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C45E5DCA29830D0000ECEFA8 /* SnapKit */; };
-		C45E5DCD2983396A00ECEFA8 /* ResturantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45E5DCC2983396A00ECEFA8 /* ResturantCollectionViewCell.swift */; };
-		C4B28B8E2982918100A6904E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B28B8C2982918100A6904E /* Endpoint.swift */; };
-		C4B28B8F2982918100A6904E /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B28B8D2982918100A6904E /* HttpService.swift */; };
-		C4B28B912982919600A6904E /* RestaurantsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B28B902982919600A6904E /* RestaurantsEndpoint.swift */; };
-		C4B28B9D298291F800A6904E /* LoadViewShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B28B96298291F800A6904E /* LoadViewShowing.swift */; };
-		C4B28BA0298291F800A6904E /* ErrorViewShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B28B9C298291F800A6904E /* ErrorViewShowing.swift */; };
-		C4B28BAC298295D000A6904E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = C4B28BAB298295D000A6904E /* Kingfisher */; };
-		C4B28BBA2982976D00A6904E /* RestaurantsListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B28BAF2982976D00A6904E /* RestaurantsListPresenter.swift */; };
-		C4B28BBC2982976D00A6904E /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B28BB22982976D00A6904E /* Restaurant.swift */; };
-		C4B28BC02982976D00A6904E /* RestaurantsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B28BB92982976D00A6904E /* RestaurantsListViewController.swift */; };
 		C4B55A75298217BF00855317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A74298217BF00855317 /* AppDelegate.swift */; };
 		C4B55A77298217BF00855317 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A76298217BF00855317 /* SceneDelegate.swift */; };
 		C4B55A7E298217C000855317 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4B55A7D298217C000855317 /* Assets.xcassets */; };
@@ -30,6 +16,7 @@
 		C4B55A8C298217C100855317 /* InterviewTask2023Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A8B298217C100855317 /* InterviewTask2023Tests.swift */; };
 		C4B55A96298217C100855317 /* InterviewTask2023UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A95298217C100855317 /* InterviewTask2023UITests.swift */; };
 		C4B55A98298217C100855317 /* InterviewTask2023UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A97298217C100855317 /* InterviewTask2023UITestsLaunchTests.swift */; };
+		C4B57BCA2984819700AA1423 /* RestaurantsTask in Frameworks */ = {isa = PBXBuildFile; productRef = C4B57BC92984819700AA1423 /* RestaurantsTask */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,20 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C428E4902983F14200417489 /* ResturantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResturantView.swift; sourceTree = "<group>"; };
-		C428E4982984028100417489 /* RestaurantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsViewController.swift; sourceTree = "<group>"; };
-		C428E49A298402E700417489 /* RestaurantDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailsPresenter.swift; sourceTree = "<group>"; };
 		C428E49F29843BBA00417489 /* MockError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockError.swift; sourceTree = "<group>"; };
 		C428E4A129843BBA00417489 /* Repo+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Repo+Mock.swift"; sourceTree = "<group>"; };
-		C45E5DCC2983396A00ECEFA8 /* ResturantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResturantCollectionViewCell.swift; sourceTree = "<group>"; };
-		C4B28B8C2982918100A6904E /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
-		C4B28B8D2982918100A6904E /* HttpService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
-		C4B28B902982919600A6904E /* RestaurantsEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantsEndpoint.swift; sourceTree = "<group>"; };
-		C4B28B96298291F800A6904E /* LoadViewShowing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadViewShowing.swift; sourceTree = "<group>"; };
-		C4B28B9C298291F800A6904E /* ErrorViewShowing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewShowing.swift; sourceTree = "<group>"; };
-		C4B28BAF2982976D00A6904E /* RestaurantsListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantsListPresenter.swift; sourceTree = "<group>"; };
-		C4B28BB22982976D00A6904E /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
-		C4B28BB92982976D00A6904E /* RestaurantsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantsListViewController.swift; sourceTree = "<group>"; };
 		C4B55A71298217BF00855317 /* InterviewTask2023.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterviewTask2023.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B55A74298217BF00855317 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4B55A76298217BF00855317 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +50,7 @@
 		C4B55A91298217C100855317 /* InterviewTask2023UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterviewTask2023UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B55A95298217C100855317 /* InterviewTask2023UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewTask2023UITests.swift; sourceTree = "<group>"; };
 		C4B55A97298217C100855317 /* InterviewTask2023UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewTask2023UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C4B57BC72984814500AA1423 /* RestaurantsTask */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RestaurantsTask; path = Packages/RestaurantsTask; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B28BAC298295D000A6904E /* Kingfisher in Frameworks */,
-				C45E5DCB29830D0000ECEFA8 /* SnapKit in Frameworks */,
+				C4B57BCA2984819700AA1423 /* RestaurantsTask in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,57 +79,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C428E4922983FD9200417489 /* RestaurantsList */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28BB72982976D00A6904E /* View */,
-				C4B28BAE2982976D00A6904E /* Presenter */,
-			);
-			path = RestaurantsList;
-			sourceTree = "<group>";
-		};
-		C428E4932983FDFD00417489 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				C428E4942983FE1F00417489 /* Endpoint */,
-				C4B28BB12982976D00A6904E /* Model */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		C428E4942983FE1F00417489 /* Endpoint */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28B902982919600A6904E /* RestaurantsEndpoint.swift */,
-			);
-			path = Endpoint;
-			sourceTree = "<group>";
-		};
-		C428E4962984025B00417489 /* RestaurantDetails */ = {
-			isa = PBXGroup;
-			children = (
-				C428E49C298403A400417489 /* Presenter */,
-				C428E4972984026900417489 /* View */,
-			);
-			path = RestaurantDetails;
-			sourceTree = "<group>";
-		};
-		C428E4972984026900417489 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				C428E4982984028100417489 /* RestaurantDetailsViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		C428E49C298403A400417489 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				C428E49A298402E700417489 /* RestaurantDetailsPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
 		C428E49D29843BBA00417489 /* SharedMocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,83 +88,15 @@
 			path = SharedMocks;
 			sourceTree = "<group>";
 		};
-		C4B28B8A2982918100A6904E /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28B8C2982918100A6904E /* Endpoint.swift */,
-				C4B28B8D2982918100A6904E /* HttpService.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		C4B28B94298291F800A6904E /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28B95298291F800A6904E /* Loading */,
-				C4B28B9B298291F800A6904E /* Error */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		C4B28B95298291F800A6904E /* Loading */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28B96298291F800A6904E /* LoadViewShowing.swift */,
-			);
-			path = Loading;
-			sourceTree = "<group>";
-		};
-		C4B28B9B298291F800A6904E /* Error */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28B9C298291F800A6904E /* ErrorViewShowing.swift */,
-			);
-			path = Error;
-			sourceTree = "<group>";
-		};
-		C4B28BAD2982976D00A6904E /* RestaurantsFeature */ = {
-			isa = PBXGroup;
-			children = (
-				C428E4962984025B00417489 /* RestaurantDetails */,
-				C428E4932983FDFD00417489 /* Shared */,
-				C428E4922983FD9200417489 /* RestaurantsList */,
-			);
-			path = RestaurantsFeature;
-			sourceTree = "<group>";
-		};
-		C4B28BAE2982976D00A6904E /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28BAF2982976D00A6904E /* RestaurantsListPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		C4B28BB12982976D00A6904E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28BB22982976D00A6904E /* Restaurant.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		C4B28BB72982976D00A6904E /* View */ = {
-			isa = PBXGroup;
-			children = (
-				C4B28BB92982976D00A6904E /* RestaurantsListViewController.swift */,
-				C45E5DCC2983396A00ECEFA8 /* ResturantCollectionViewCell.swift */,
-				C428E4902983F14200417489 /* ResturantView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		C4B55A68298217BF00855317 = {
 			isa = PBXGroup;
 			children = (
+				C4B57BC62984814500AA1423 /* Packages */,
 				C4B55A73298217BF00855317 /* InterviewTask2023 */,
 				C4B55A8A298217C100855317 /* InterviewTask2023Tests */,
 				C4B55A94298217C100855317 /* InterviewTask2023UITests */,
 				C4B55A72298217BF00855317 /* Products */,
+				C4B57BC82984819700AA1423 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -259,9 +115,6 @@
 			children = (
 				C4B55A74298217BF00855317 /* AppDelegate.swift */,
 				C4B55A76298217BF00855317 /* SceneDelegate.swift */,
-				C4B28B8A2982918100A6904E /* Network */,
-				C4B28BAD2982976D00A6904E /* RestaurantsFeature */,
-				C4B28B94298291F800A6904E /* Helpers */,
 				C4B55A7D298217C000855317 /* Assets.xcassets */,
 				C4B55A7F298217C000855317 /* LaunchScreen.storyboard */,
 				C4B55A82298217C000855317 /* Info.plist */,
@@ -287,6 +140,21 @@
 			path = InterviewTask2023UITests;
 			sourceTree = "<group>";
 		};
+		C4B57BC62984814500AA1423 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				C4B57BC72984814500AA1423 /* RestaurantsTask */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		C4B57BC82984819700AA1423 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -304,8 +172,7 @@
 			);
 			name = InterviewTask2023;
 			packageProductDependencies = (
-				C4B28BAB298295D000A6904E /* Kingfisher */,
-				C45E5DCA29830D0000ECEFA8 /* SnapKit */,
+				C4B57BC92984819700AA1423 /* RestaurantsTask */,
 			);
 			productName = InterviewTask2023;
 			productReference = C4B55A71298217BF00855317 /* InterviewTask2023.app */;
@@ -380,8 +247,6 @@
 			);
 			mainGroup = C4B55A68298217BF00855317;
 			packageReferences = (
-				C4B28BAA298295D000A6904E /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				C45E5DC929830D0000ECEFA8 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = C4B55A72298217BF00855317 /* Products */;
 			projectDirPath = "";
@@ -425,20 +290,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B28B9D298291F800A6904E /* LoadViewShowing.swift in Sources */,
-				C4B28B912982919600A6904E /* RestaurantsEndpoint.swift in Sources */,
-				C45E5DCD2983396A00ECEFA8 /* ResturantCollectionViewCell.swift in Sources */,
 				C4B55A75298217BF00855317 /* AppDelegate.swift in Sources */,
-				C4B28BC02982976D00A6904E /* RestaurantsListViewController.swift in Sources */,
-				C4B28B8E2982918100A6904E /* Endpoint.swift in Sources */,
-				C4B28BBC2982976D00A6904E /* Restaurant.swift in Sources */,
 				C4B55A77298217BF00855317 /* SceneDelegate.swift in Sources */,
-				C4B28B8F2982918100A6904E /* HttpService.swift in Sources */,
-				C4B28BBA2982976D00A6904E /* RestaurantsListPresenter.swift in Sources */,
-				C428E4992984028100417489 /* RestaurantDetailsViewController.swift in Sources */,
-				C428E4912983F14200417489 /* ResturantView.swift in Sources */,
-				C428E49B298402E700417489 /* RestaurantDetailsPresenter.swift in Sources */,
-				C4B28BA0298291F800A6904E /* ErrorViewShowing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,35 +622,10 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		C45E5DC929830D0000ECEFA8 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		C4B28BAA298295D000A6904E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		C45E5DCA29830D0000ECEFA8 /* SnapKit */ = {
+		C4B57BC92984819700AA1423 /* RestaurantsTask */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C45E5DC929830D0000ECEFA8 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		C4B28BAB298295D000A6904E /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C4B28BAA298295D000A6904E /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
+			productName = RestaurantsTask;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -50,6 +50,7 @@ class RestaurantsListPresenter: RestaurantsListPresenterProtocol {
         
         do {
             let restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
+            
             self.restaurants = restaurants
             state = .loaded(restaurants)
         } catch {

@@ -1,4 +1,5 @@
 import UIKit
+import RestaurantsTask
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     

@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class RestaurantsListViewController: UIViewController, LoadingViewShowing, ErrorViewShowing {
+public class RestaurantsListViewController: UIViewController, LoadingViewShowing, ErrorViewShowing {
     // MARK: - Public
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -12,7 +12,7 @@ class RestaurantsListViewController: UIViewController, LoadingViewShowing, Error
         super.init(nibName: nil, bundle: nil)
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
@@ -24,7 +24,7 @@ class RestaurantsListViewController: UIViewController, LoadingViewShowing, Error
         }
     }
     
-    static func makeViewController() -> RestaurantsListViewController {
+    public static func makeViewController() -> RestaurantsListViewController {
         let presenter = RestaurantsListPresenter()
         let viewController = RestaurantsListViewController(presenter: presenter)
         return viewController
@@ -93,7 +93,7 @@ extension RestaurantsListViewController: RestaurantsListView {
 }
 
 extension RestaurantsListViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectRestaurantAtIndex(index: indexPath.row)
     }
 }
