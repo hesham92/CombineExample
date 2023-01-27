@@ -1,36 +1,57 @@
-//
-//  InterviewTask2023Tests.swift
-//  InterviewTask2023Tests
-//
-//  Created by Hesham Mohammed on 26/01/2023.
-//
-
 import XCTest
 @testable import InterviewTask2023
 
-final class InterviewTask2023Tests: XCTestCase {
-
+final class UsersListViewModelTests: XCTestCase {
+    var presenter: RestaurantsListPresenter!
+    private var restaurantRequest: RestaurantsListPresenter.RestaurantRequest!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        presenter = RestaurantsListPresenter(restaurantRequest: { [unowned self] in self.restaurantRequest($0, $1, $2) })
     }
-
+    
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        presenter = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testFetchUsers_success() {
+        //given
+        let expectedUsersList = [Restaurant.mock()]
+        
+        restaurantRequest = { _, _, completionHandler in
+            completionHandler(.success([Restaurant.mock()]))
         }
+        
+      
+        //when
+        presenter?.viewDidLoad()
+        
+        //then
+       // XCTAssertTrue(presenter.res .value.count > 0)
+//        XCTAssertTrue(viewModel.isLoading.value == false)
+//        XCTAssertTrue(viewModel.errorMessage.value == "")
     }
-
+    
+//    func testFetchUsers_failure() {
+//        //given
+//        serviceMock.fetchUsersCallBlock = { completion in
+//            completion(.failure(MockError()))
+//        }
+//
+//        //when
+//        presenter?.viewDidLoad()
+//
+//        //then
+//
+//    }
+    
+//    func testDidSelectUserAtIndex() {
+//        //given
+//        viewModel.users.value = [User.mock(username: "Test1", avatarUrl: "Https://Test/image.png", numberOfFollowers: nil, numberOfPublicRepos: nil), User.mock(username: "Test2", avatarUrl: "Https://Test/image.png", numberOfFollowers: nil, numberOfPublicRepos: nil)]
+//
+//        //when
+//        viewModel?.didSelectUserAtIndex(index: 1)
+//
+//        //then
+//        XCTAssertEqual(viewModel.naviagteToReposScreen.value, "Test2")
+//    }
 }
