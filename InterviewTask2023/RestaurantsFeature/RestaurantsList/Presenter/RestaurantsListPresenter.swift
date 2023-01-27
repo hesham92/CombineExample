@@ -9,63 +9,56 @@ enum RestaurantsListState {
 
 protocol RestaurantsListPresenterProtocol {
     var state: RestaurantsListState { get }
-    func configure(with viewDelegate: RestaurantsListViewDelegate)
+    func configure(with viewDelegate: RestaurantsListView)
     func didSelectRestaurantAtIndex(index: Int)
-    func viewDidLoad()
+    func viewDidLoad() async
 }
 
-protocol RestaurantsListViewDelegate: AnyObject {
+protocol RestaurantsListView: AnyObject {
     func stateDidChange()
     func navigateToRestaurantDetails(restaurant: Restaurant)
 }
 
 class RestaurantsListPresenter: RestaurantsListPresenterProtocol {
-    
-    typealias RestaurantRequest = PerformRequest<[Restaurant]>
-    private let restaurantRequest: RestaurantRequest
     // MARK: - Public
-    init(restaurantRequest: @escaping RestaurantRequest = makePerformRequest(), completionQueue: DispatchQueue = .main){
-        self.restaurantRequest = restaurantRequest
-        self.completionQueue = completionQueue
+    init(service: HttpServiceProtocol = HttpService()){
+        self.service = service
     }
     
     private(set) var state: RestaurantsListState = .idle {
         didSet {
-            viewDelegate?.stateDidChange()
+            view?.stateDidChange()
         }
     }
     
     func didSelectRestaurantAtIndex(index: Int) {
-        viewDelegate?.navigateToRestaurantDetails(restaurant: restaurants[index])
+        view?.navigateToRestaurantDetails(restaurant: restaurants[index])
     }
     
-    func configure(with viewDelegate: RestaurantsListViewDelegate) {
-        self.viewDelegate = viewDelegate
+    func configure(with viewDelegate: RestaurantsListView) {
+        self.view = viewDelegate
     }
     
-    func viewDidLoad() {
-        fetchRestaurants()
+    func viewDidLoad() async {
+        await fetchRestaurants()
     }
     
     // MARK: - Private
-    private func fetchRestaurants() {
+    @MainActor
+    private func fetchRestaurants() async {
         self.state = .loading
         
-        restaurantRequest(RestaurantsEndpoint.getRestaurants, [Restaurant].self) { result in
-            self.completionQueue.async {
-                switch(result) {
-                case .success(let restaurants):
-                    self.restaurants = restaurants
-                    self.state = .loaded(restaurants)
-                case .failure(let error):
-                    self.restaurants.removeAll()
-                    self.state = .error(error.localizedDescription)
-                }
-            }
+        do {
+            let restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
+            self.restaurants = restaurants
+            state = .loaded(restaurants)
+        } catch {
+            restaurants.removeAll()
+            state = .error(error.localizedDescription)
         }
     }
     
-    private weak var viewDelegate: RestaurantsListViewDelegate?
-    private var completionQueue: DispatchQueue
-    private var restaurants: [Restaurant] = []
+    private let service: HttpServiceProtocol
+    private weak var view: RestaurantsListView?
+    var restaurants: [Restaurant] = []
 }

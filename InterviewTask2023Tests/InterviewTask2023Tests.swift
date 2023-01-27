@@ -3,30 +3,29 @@ import XCTest
 
 final class UsersListViewModelTests: XCTestCase {
     var presenter: RestaurantsListPresenter!
-    private var restaurantRequest: RestaurantsListPresenter.RestaurantRequest!
+    var serviceMock: HttpServiceMock!
     
     override func setUpWithError() throws {
-        presenter = RestaurantsListPresenter(restaurantRequest: { [unowned self] in self.restaurantRequest($0, $1, $2) })
+        serviceMock = HttpServiceMock()
+        presenter = RestaurantsListPresenter(service: serviceMock)
     }
     
     override func tearDownWithError() throws {
+        serviceMock = nil
         presenter = nil
     }
     
-    func testFetchUsers_success() {
+    func testFetchUsers_success() async throws {
         //given
-        let expectedUsersList = [Restaurant.mock()]
+
+        serviceMock.setResult(.success([Restaurant.mock()]))
         
-        restaurantRequest = { _, _, completionHandler in
-            completionHandler(.success([Restaurant.mock()]))
-        }
-        
-      
+    
         //when
-        presenter?.viewDidLoad()
+        await presenter.viewDidLoad()
         
         //then
-       // XCTAssertTrue(presenter.res .value.count > 0)
+        XCTAssertTrue(presenter.restaurants.count > 0)
 //        XCTAssertTrue(viewModel.isLoading.value == false)
 //        XCTAssertTrue(viewModel.errorMessage.value == "")
     }
@@ -41,7 +40,9 @@ final class UsersListViewModelTests: XCTestCase {
 //        presenter?.viewDidLoad()
 //
 //        //then
-//
+////        XCTAssertTrue(viewModel.users.value.count == 0)
+////        XCTAssertTrue(viewModel.isLoading.value == false)
+////        XCTAssertTrue(viewModel.errorMessage.value != "")
 //    }
     
 //    func testDidSelectUserAtIndex() {

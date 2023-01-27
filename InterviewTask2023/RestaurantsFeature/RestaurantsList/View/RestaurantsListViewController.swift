@@ -11,7 +11,7 @@ class RestaurantsListViewController: UIViewController, LoadingViewShowing, Error
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,7 +19,9 @@ class RestaurantsListViewController: UIViewController, LoadingViewShowing, Error
         configureConstraints()
         
         presenter.configure(with: self)
-        presenter.viewDidLoad()
+        Task {
+            await presenter.viewDidLoad()
+        }
     }
     
     static func makeViewController() -> RestaurantsListViewController {
@@ -40,7 +42,7 @@ class RestaurantsListViewController: UIViewController, LoadingViewShowing, Error
             $0.edges.equalToSuperview()
         }
     }
-    
+        
     private lazy var collectionView: UICollectionView = {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
@@ -65,7 +67,7 @@ class RestaurantsListViewController: UIViewController, LoadingViewShowing, Error
     private var dataSource: UICollectionViewDiffableDataSource<Section, Restaurant>?
 }
 
-extension RestaurantsListViewController: RestaurantsListViewDelegate {
+extension RestaurantsListViewController: RestaurantsListView {
     func stateDidChange() {
         self.handleLoading(isLoading: false)
 
