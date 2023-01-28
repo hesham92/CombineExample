@@ -1,4 +1,4 @@
 import XCTest
-@testable import InterviewTask2023
+@testable import RestaurantsTask
 
 struct MockError: Error {}

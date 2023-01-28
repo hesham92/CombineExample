@@ -1,6 +1,6 @@
 import Foundation
 
-enum RestaurantsListState {
+enum RestaurantsListState: Equatable {
     case idle
     case loading
     case loaded([Restaurant])
