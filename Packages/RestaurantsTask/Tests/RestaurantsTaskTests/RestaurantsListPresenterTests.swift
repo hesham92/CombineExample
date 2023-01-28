@@ -41,10 +41,9 @@ final class RestaurantsListPresenterTests: XCTestCase {
         //then
         
         if case let .error(errorDesc) = self.presenter.state {
-            XCTAssertTrue(errorDesc.count > 0)
+            XCTAssertFalse(errorDesc.isEmpty)
         } else {
-            XCTFail("Expected presenter state to be loaded with restaurants count = 2")
+            XCTFail("Expect errorDesc is not empty")
         }
-
     }
 }
