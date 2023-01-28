@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 protocol LoadingViewShowing {
     func handleLoading(isLoading: Bool)
@@ -22,9 +23,9 @@ extension LoadingViewShowing where Self: UIViewController {
         let loadingView = UIActivityIndicatorView(style: .medium)
         view.addSubview(loadingView)
         
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        loadingView.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
         
         loadingView.tag = Constants.loadingViewTag
         loadingView.startAnimating()

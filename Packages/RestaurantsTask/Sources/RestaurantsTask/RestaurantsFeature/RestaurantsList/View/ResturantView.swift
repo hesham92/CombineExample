@@ -22,9 +22,10 @@ final class ResturantView: UIView {
         thumbnailImageView.kf.cancelDownloadTask()
     }
     
-    func configure(viewModel: RestaurantViewModel) {
+    func configure(with viewModel: RestaurantViewModel) {
         restaurantNameLabel.text = viewModel.name
-        thumbnailImageView.kf.setImage(with: URL(string: viewModel.image))
+        thumbnailImageView.kf.indicatorType = .activity
+        thumbnailImageView.kf.setImage(with: viewModel.imageURL)
     }
 
     // MARK: - Private
@@ -40,7 +41,7 @@ final class ResturantView: UIView {
         }
         
         restaurantNameLabel.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
+            $0.centerY.equalTo(thumbnailImageView.snp.centerY)
             $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(8)
         }
     }

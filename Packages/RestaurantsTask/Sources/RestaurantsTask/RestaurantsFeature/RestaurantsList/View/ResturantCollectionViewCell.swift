@@ -20,8 +20,8 @@ final class ResturantCollectionViewCell: UICollectionViewCell {
         self.view.prepareForReuse()
     }
     
-    func configure(viewModel: RestaurantViewModel) {
-        self.view.configure(viewModel: viewModel)
+    func configure(with viewModel: RestaurantViewModel) {
+        self.view.configure(with: viewModel)
     }
     
     // MARK: - Private

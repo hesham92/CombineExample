@@ -1,7 +1,7 @@
 import Foundation
 
 struct RestaurantViewModel: Equatable, Hashable {
-    let image: String
+    let imageURL: URL?
     let name: String
 }
 
@@ -14,7 +14,7 @@ enum RestaurantsListState: Equatable {
 
 protocol RestaurantsListPresenter {
     var state: RestaurantsListState { get }
-    func configure(with viewDelegate: RestaurantsListView)
+    func configure(with view: RestaurantsListView)
     func didSelectRestaurantAtIndex(index: Int)
     func didSelectSegmentAtIndex(index: Int)
     func viewDidLoad() async
@@ -81,7 +81,7 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
     private func createViewModel(restaurants: [Restaurant]) -> [RestaurantViewModel] {
         var restaurantsViewModels: [RestaurantViewModel] = []
         for restaurant in restaurants {
-            restaurantsViewModels.append(RestaurantViewModel(image: restaurant.image, name: restaurant.name))
+            restaurantsViewModels.append(RestaurantViewModel(imageURL: URL(string: restaurant.image), name: restaurant.name))
         }
         return restaurantsViewModels
     }

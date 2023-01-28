@@ -63,7 +63,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         collectionView.delegate = self
         
         let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, RestaurantViewModel> { cell, indexPath, restaurantViewModel in
-            cell.configure(viewModel: restaurantViewModel)
+            cell.configure(with: restaurantViewModel)
         }
         
         dataSource = UICollectionViewDiffableDataSource<Section, RestaurantViewModel>(collectionView: collectionView) { collectionView, indexPath, restaurantViewModel in
