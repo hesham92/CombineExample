@@ -1,30 +1,49 @@
 import Foundation
 
-protocol RestaurantsDetailsPresenterProtocol {
-    func configure(with viewDelegate: RestaurantsDetailsViewDelegate)
+struct RestaurantDetailsViewModel: Equatable, Hashable {
+    let image: String
+    let name: String
+    let description: String
+    let hours: String
+    let distance: Double
+    let rating: Double
+}
+
+protocol RestaurantsDetailsPresenter {
+    func configure(with viewDelegate: RestaurantsDetailsView)
     func viewDidLoad()
 }
 
-protocol RestaurantsDetailsViewDelegate: AnyObject {
-    func updateUI(restaurant: Restaurant)
+protocol RestaurantsDetailsView: AnyObject {
+    func updateUI(viewModel: RestaurantDetailsViewModel)
 }
 
-class RestaurantDetailsPresenter: RestaurantsDetailsPresenterProtocol {
+final class DefaultRestaurantDetailsPresenter: RestaurantsDetailsPresenter {
     // MARK: - Public
     init(restaurant: Restaurant){
         self.restaurant = restaurant
     }
     
-    func configure(with viewDelegate: RestaurantsDetailsViewDelegate) {
+    func configure(with viewDelegate: RestaurantsDetailsView) {
         self.viewDelegate = viewDelegate
     }
     
     func viewDidLoad() {
-        viewDelegate?.updateUI(restaurant: restaurant)
+        viewDelegate?.updateUI(viewModel: createViewModel(restaurant: restaurant))
+    }
+    
+    private func createViewModel(restaurant: Restaurant) -> RestaurantDetailsViewModel {
+        RestaurantDetailsViewModel(
+            image: restaurant.image,
+            name: restaurant.name,
+            description: restaurant.description,
+            hours: restaurant.hours,
+            distance: restaurant.distance,
+            rating: restaurant.rating
+        )
     }
     
     // MARK: - Private
-    
     private var restaurant: Restaurant
-    private weak var viewDelegate: RestaurantsDetailsViewDelegate?
+    private weak var viewDelegate: RestaurantsDetailsView?
 }

@@ -7,7 +7,7 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(presenter: RestaurantsDetailsPresenterProtocol) {
+    init(presenter: RestaurantsDetailsPresenter) {
         self.presenter = presenter
         
         super.init(nibName: nil, bundle: nil)
@@ -24,7 +24,7 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
     }
     
     static func makeViewController(restaurant: Restaurant) -> RestaurantDetailsViewController {
-        let presenter = RestaurantDetailsPresenter(restaurant: restaurant)
+        let presenter = DefaultRestaurantDetailsPresenter(restaurant: restaurant)
         let viewController = RestaurantDetailsViewController(presenter: presenter)
         return viewController
     }
@@ -42,10 +42,12 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
             $0.size.height.equalTo(200)
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
+        
         nameAndDescriptionstackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(8)
             $0.top.equalTo(restaurantImageView.snp.bottom).offset(20)
         }
+        
         hoursAndRatingstackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(8)
             $0.top.equalTo(nameAndDescriptionstackView.snp.bottom).offset(20)
@@ -62,7 +64,6 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
     
     private lazy var nameAndDescriptionstackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [restaurantNameLabel, restaurantDescriptionLabel])
-     //   stackView.distribution = .fillProportionally
         stackView.axis = .horizontal
         stackView.spacing = 20
         return stackView
@@ -70,14 +71,13 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
     
     private let restaurantNameLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
         label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
     
     private let restaurantDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 3
+        label.numberOfLines = 0
         return label
     }()
     
@@ -101,15 +101,15 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
         return label
     }()
 
-    private let presenter: RestaurantsDetailsPresenterProtocol
+    private let presenter: RestaurantsDetailsPresenter
 }
 
-extension RestaurantDetailsViewController: RestaurantsDetailsViewDelegate {
-    func updateUI(restaurant: Restaurant) {
-        restaurantImageView.kf.setImage(with: URL(string: restaurant.image))
-        restaurantNameLabel.text = restaurant.name
-        restaurantDescriptionLabel.text = restaurant.description
-        restaurantHoursLabel.text = restaurant.hours
-        restaurantRatingLabel.text = String(restaurant.rating)
+extension RestaurantDetailsViewController: RestaurantsDetailsView {
+    func updateUI(viewModel: RestaurantDetailsViewModel) {
+        restaurantImageView.kf.setImage(with: URL(string: viewModel.image))
+        restaurantNameLabel.text = viewModel.name
+        restaurantDescriptionLabel.text = viewModel.description
+        restaurantHoursLabel.text = viewModel.hours
+        restaurantRatingLabel.text = String(viewModel.rating)
     }
 }

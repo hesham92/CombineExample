@@ -49,7 +49,6 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         }
     }
     
-    // MARK: - Actions
     @objc private func segmentedControlValueChanged() {
         presenter.didSelectSegmentAtIndex(index: segmentedControl.selectedSegmentIndex)
     }

@@ -54,7 +54,7 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
             sortedRestaurants = restaurants.sorted { String($0.rating) > String($1.rating) }
         }
         
-        state = .loaded(makeViewModel(restaurants: sortedRestaurants))
+        state = .loaded(createViewModel(restaurants: sortedRestaurants))
     }
     
     func configure(with viewDelegate: RestaurantsListView) {
@@ -72,14 +72,14 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         
         do {
             restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
-            state = .loaded(makeViewModel(restaurants: restaurants))
+            state = .loaded(createViewModel(restaurants: restaurants))
         } catch {
             restaurants.removeAll()
             state = .error(error.localizedDescription)
         }
     }
     
-    private func makeViewModel(restaurants: [Restaurant]) -> [RestaurantViewModel] {
+    private func createViewModel(restaurants: [Restaurant]) -> [RestaurantViewModel] {
         var restaurantsViewModels: [RestaurantViewModel] = []
         for restaurant in restaurants {
             restaurantsViewModels.append(RestaurantViewModel(image: restaurant.image, name: restaurant.name))

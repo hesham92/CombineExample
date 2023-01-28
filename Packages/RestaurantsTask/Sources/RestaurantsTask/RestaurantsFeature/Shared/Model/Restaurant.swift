@@ -8,5 +8,3 @@ struct Restaurant: Codable, Equatable, Hashable {
     let distance: Double
     let rating: Double
 }
-
-
