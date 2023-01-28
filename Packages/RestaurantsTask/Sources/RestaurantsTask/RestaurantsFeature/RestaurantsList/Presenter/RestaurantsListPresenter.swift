@@ -15,8 +15,8 @@ enum RestaurantsListState: Equatable {
 protocol RestaurantsListPresenter {
     var state: RestaurantsListState { get }
     func configure(with view: RestaurantsListView)
-    func didSelectRestaurantAtIndex(index: Int)
-    func didSelectSegmentAtIndex(index: Int)
+    func didSelectRestaurantAtIndex(_ index: Int)
+    func didSelectSegmentAtIndex(_ index: Int)
     func viewDidLoad() async
 }
 
@@ -37,11 +37,11 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         }
     }
     
-    func didSelectRestaurantAtIndex(index: Int) {
+    func didSelectRestaurantAtIndex(_ index: Int) {
         view?.navigateToRestaurantDetails(restaurant: restaurants[index])
     }
     
-    func didSelectSegmentAtIndex(index: Int) {
+    func didSelectSegmentAtIndex(_ index: Int) {
         var sortedRestaurants: [Restaurant] = []
         
         switch SortingCriteria(rawValue: index) {

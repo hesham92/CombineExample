@@ -50,7 +50,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     }
     
     @objc private func segmentedControlValueChanged() {
-        presenter.didSelectSegmentAtIndex(index: segmentedControl.selectedSegmentIndex)
+        presenter.didSelectSegmentAtIndex(segmentedControl.selectedSegmentIndex)
     }
         
     private lazy var collectionView: UICollectionView = {
@@ -111,7 +111,7 @@ extension RestaurantsListViewController: RestaurantsListView {
 
 extension RestaurantsListViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.didSelectRestaurantAtIndex(index: indexPath.row)
+        presenter.didSelectRestaurantAtIndex(indexPath.row)
     }
 }
 

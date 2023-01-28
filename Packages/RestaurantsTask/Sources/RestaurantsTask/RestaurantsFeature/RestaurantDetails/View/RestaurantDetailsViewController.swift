@@ -105,7 +105,7 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
 }
 
 extension RestaurantDetailsViewController: RestaurantsDetailsView {
-    func updateUI(viewModel: RestaurantDetailsViewModel) {
+    func updateUI(with viewModel: RestaurantDetailsViewModel) {
         restaurantImageView.kf.setImage(with: viewModel.imageURL)
         restaurantNameLabel.text = viewModel.name
         restaurantDescriptionLabel.text = viewModel.description

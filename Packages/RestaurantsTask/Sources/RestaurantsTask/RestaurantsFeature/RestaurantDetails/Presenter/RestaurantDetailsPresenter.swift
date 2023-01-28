@@ -14,7 +14,7 @@ protocol RestaurantsDetailsPresenter {
 }
 
 protocol RestaurantsDetailsView: AnyObject {
-    func updateUI(viewModel: RestaurantDetailsViewModel)
+    func updateUI(with viewModel: RestaurantDetailsViewModel)
 }
 
 final class DefaultRestaurantDetailsPresenter: RestaurantsDetailsPresenter {
@@ -28,7 +28,7 @@ final class DefaultRestaurantDetailsPresenter: RestaurantsDetailsPresenter {
     }
     
     func viewDidLoad() {
-        view?.updateUI(viewModel: createViewModel(restaurant: restaurant))
+        view?.updateUI(with: createViewModel(restaurant: restaurant))
     }
     
     private func createViewModel(restaurant: Restaurant) -> RestaurantDetailsViewModel {
