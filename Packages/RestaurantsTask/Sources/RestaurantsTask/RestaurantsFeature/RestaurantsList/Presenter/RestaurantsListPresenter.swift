@@ -7,10 +7,11 @@ enum RestaurantsListState {
     case error(String)
 }
 
-protocol RestaurantsListPresenterProtocol {
+protocol RestaurantsListPresenter {
     var state: RestaurantsListState { get }
     func configure(with viewDelegate: RestaurantsListView)
     func didSelectRestaurantAtIndex(index: Int)
+    func didSelectSegmentAtIndex(index: Int)
     func viewDidLoad() async
 }
 
@@ -19,7 +20,7 @@ protocol RestaurantsListView: AnyObject {
     func navigateToRestaurantDetails(restaurant: Restaurant)
 }
 
-class RestaurantsListPresenter: RestaurantsListPresenterProtocol {
+final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
     // MARK: - Public
     init(service: HttpServiceProtocol = HttpService()){
         self.service = service
@@ -35,8 +36,23 @@ class RestaurantsListPresenter: RestaurantsListPresenterProtocol {
         view?.navigateToRestaurantDetails(restaurant: restaurants[index])
     }
     
+    func didSelectSegmentAtIndex(index: Int) {
+        var sortedRestaurants: [Restaurant] = []
+        
+        switch SortingCriteria(rawValue: index) {
+        case .default, .none:
+            sortedRestaurants = restaurants
+        case .distance:
+            sortedRestaurants = restaurants.sorted { String($0.distance) < String($1.distance) }
+        case .rating:
+            sortedRestaurants = restaurants.sorted { String($0.rating) > String($1.rating) }
+        }
+        
+        state = .loaded(sortedRestaurants)
+    }
+    
     func configure(with viewDelegate: RestaurantsListView) {
-        self.view = viewDelegate
+        view = viewDelegate
     }
     
     func viewDidLoad() async {
@@ -49,9 +65,7 @@ class RestaurantsListPresenter: RestaurantsListPresenterProtocol {
         self.state = .loading
         
         do {
-            let restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
-            
-            self.restaurants = restaurants
+            restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
             state = .loaded(restaurants)
         } catch {
             restaurants.removeAll()
@@ -59,7 +73,13 @@ class RestaurantsListPresenter: RestaurantsListPresenterProtocol {
         }
     }
     
+    enum SortingCriteria: Int, CaseIterable {
+        case `default` = 0
+        case distance = 1
+        case rating = 2
+    }
+    
     private let service: HttpServiceProtocol
     private weak var view: RestaurantsListView?
-    var restaurants: [Restaurant] = []
+    private var restaurants: [Restaurant] = []
 }

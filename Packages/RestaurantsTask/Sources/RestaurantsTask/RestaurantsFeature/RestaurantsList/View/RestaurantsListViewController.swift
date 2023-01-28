@@ -1,13 +1,13 @@
 import UIKit
 import SnapKit
 
-public class RestaurantsListViewController: UIViewController, LoadingViewShowing, ErrorViewShowing {
+public class RestaurantsListViewController: UIViewController, LoadingViewShowing, ErrorViewShowing, UIActionSheetDelegate {
     // MARK: - Public
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(presenter: RestaurantsListPresenterProtocol) {
+    init(presenter: RestaurantsListPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
@@ -25,7 +25,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     }
     
     public static func makeViewController() -> RestaurantsListViewController {
-        let presenter = RestaurantsListPresenter()
+        let presenter = DefaultRestaurantsListPresenter()
         let viewController = RestaurantsListViewController(presenter: presenter)
         return viewController
     }
@@ -33,14 +33,25 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     // MARK: - Private
     private func configureView() {
         title = "Restaurants"
-        
+        view.backgroundColor = .white
+        view.addSubview(segmentedControl)
         view.addSubview(collectionView)
     }
     
     private func configureConstraints() {
-        collectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        segmentedControl.snp.makeConstraints {
+            $0.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(collectionView.snp.top)
         }
+        
+        collectionView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+    }
+    
+    // MARK: - Actions
+    @objc private func segmentedControlValueChanged() {
+        presenter.didSelectSegmentAtIndex(index: segmentedControl.selectedSegmentIndex)
     }
         
     private lazy var collectionView: UICollectionView = {
@@ -63,7 +74,14 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         return collectionView
     }()
     
-    private let presenter: RestaurantsListPresenterProtocol
+    private lazy var segmentedControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: ["Default", "Distance", "Rating"])
+        control.selectedSegmentIndex = 0
+        control.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+        return control
+    }()
+    
+    private let presenter: RestaurantsListPresenter
     private var dataSource: UICollectionViewDiffableDataSource<Section, Restaurant>?
 }
 
