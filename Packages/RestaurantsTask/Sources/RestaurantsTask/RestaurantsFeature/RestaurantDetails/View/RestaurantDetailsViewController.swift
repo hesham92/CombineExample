@@ -71,8 +71,7 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
     
     private let restaurantNameLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
-        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         return label
     }()
     
