@@ -1,5 +1,5 @@
 import XCTest
-@testable import InterviewTask2023
+@testable import RestaurantsTask
 
 final class UsersListViewModelTests: XCTestCase {
     var presenter: RestaurantsListPresenter!
@@ -7,7 +7,7 @@ final class UsersListViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         serviceMock = HttpServiceMock()
-        presenter = RestaurantsListPresenter(service: serviceMock)
+        presenter = DefaultRestaurantsListPresenter(service: serviceMock)
     }
     
     override func tearDownWithError() throws {

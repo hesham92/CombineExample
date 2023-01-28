@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C428E4A329843BBA00417489 /* MockError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C428E49F29843BBA00417489 /* MockError.swift */; };
-		C428E4A529843BBA00417489 /* Repo+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C428E4A129843BBA00417489 /* Repo+Mock.swift */; };
 		C4B55A75298217BF00855317 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A74298217BF00855317 /* AppDelegate.swift */; };
 		C4B55A77298217BF00855317 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A76298217BF00855317 /* SceneDelegate.swift */; };
 		C4B55A7E298217C000855317 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4B55A7D298217C000855317 /* Assets.xcassets */; };
 		C4B55A81298217C000855317 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B55A7F298217C000855317 /* LaunchScreen.storyboard */; };
-		C4B55A8C298217C100855317 /* InterviewTask2023Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A8B298217C100855317 /* InterviewTask2023Tests.swift */; };
 		C4B55A96298217C100855317 /* InterviewTask2023UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A95298217C100855317 /* InterviewTask2023UITests.swift */; };
 		C4B55A98298217C100855317 /* InterviewTask2023UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B55A97298217C100855317 /* InterviewTask2023UITestsLaunchTests.swift */; };
 		C4B57BCA2984819700AA1423 /* RestaurantsTask in Frameworks */ = {isa = PBXBuildFile; productRef = C4B57BC92984819700AA1423 /* RestaurantsTask */; };
@@ -37,8 +34,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C428E49F29843BBA00417489 /* MockError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockError.swift; sourceTree = "<group>"; };
-		C428E4A129843BBA00417489 /* Repo+Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Repo+Mock.swift"; sourceTree = "<group>"; };
 		C4B55A71298217BF00855317 /* InterviewTask2023.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterviewTask2023.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B55A74298217BF00855317 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4B55A76298217BF00855317 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,7 +41,6 @@
 		C4B55A80298217C000855317 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4B55A82298217C000855317 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B55A87298217C100855317 /* InterviewTask2023Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterviewTask2023Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4B55A8B298217C100855317 /* InterviewTask2023Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewTask2023Tests.swift; sourceTree = "<group>"; };
 		C4B55A91298217C100855317 /* InterviewTask2023UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InterviewTask2023UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B55A95298217C100855317 /* InterviewTask2023UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewTask2023UITests.swift; sourceTree = "<group>"; };
 		C4B55A97298217C100855317 /* InterviewTask2023UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterviewTask2023UITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -79,15 +73,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C428E49D29843BBA00417489 /* SharedMocks */ = {
-			isa = PBXGroup;
-			children = (
-				C428E49F29843BBA00417489 /* MockError.swift */,
-				C428E4A129843BBA00417489 /* Repo+Mock.swift */,
-			);
-			path = SharedMocks;
-			sourceTree = "<group>";
-		};
 		C4B55A68298217BF00855317 = {
 			isa = PBXGroup;
 			children = (
@@ -125,8 +110,6 @@
 		C4B55A8A298217C100855317 /* InterviewTask2023Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C428E49D29843BBA00417489 /* SharedMocks */,
-				C4B55A8B298217C100855317 /* InterviewTask2023Tests.swift */,
 			);
 			path = InterviewTask2023Tests;
 			sourceTree = "<group>";
@@ -299,9 +282,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C428E4A329843BBA00417489 /* MockError.swift in Sources */,
-				C428E4A529843BBA00417489 /* Repo+Mock.swift in Sources */,
-				C4B55A8C298217C100855317 /* InterviewTask2023Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,4 +1,4 @@
-@testable import InterviewTask2023
+@testable import RestaurantsTask
 
 extension Restaurant {
     static func mock(
@@ -10,7 +10,8 @@ extension Restaurant {
             name: "",
             description: "",
             hours: "",
-            rating: 8.0)
+            distance: 0.0,
+            rating: 0.0)
     }
 }
 
@@ -20,7 +21,7 @@ class HttpServiceMock: HttpServiceProtocol {
     func setResult<MockModelType: Codable>(_ result: MockedResult<MockModelType>) {
         self.result = result
     }
-    func request<ModelType>(endpoint: InterviewTask2023.Endpoint, modelType: ModelType.Type) async throws -> ModelType where ModelType : Decodable, ModelType : Encodable {
+    func request<ModelType>(endpoint: RestaurantsTask.Endpoint, modelType: ModelType.Type) async throws -> ModelType where ModelType : Decodable, ModelType : Encodable {
         try (
             result as! Result<ModelType, Error>
         ).get()
