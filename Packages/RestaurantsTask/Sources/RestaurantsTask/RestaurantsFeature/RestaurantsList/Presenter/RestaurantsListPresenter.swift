@@ -83,6 +83,7 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         for restaurant in restaurants {
             restaurantsViewModels.append(RestaurantViewModel(imageURL: URL(string: restaurant.image), name: restaurant.name))
         }
+        
         return restaurantsViewModels
     }
     
