@@ -71,6 +71,7 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
     
     private let restaurantNameLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.setContentHuggingPriority(.required, for: .horizontal)
         return label
     }()
@@ -106,7 +107,7 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
 
 extension RestaurantDetailsViewController: RestaurantsDetailsView {
     func updateUI(viewModel: RestaurantDetailsViewModel) {
-        restaurantImageView.kf.setImage(with: URL(string: viewModel.image))
+        restaurantImageView.kf.setImage(with: viewModel.imageURL)
         restaurantNameLabel.text = viewModel.name
         restaurantDescriptionLabel.text = viewModel.description
         restaurantHoursLabel.text = viewModel.hours

@@ -57,8 +57,8 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         state = .loaded(createViewModel(restaurants: sortedRestaurants))
     }
     
-    func configure(with viewDelegate: RestaurantsListView) {
-        view = viewDelegate
+    func configure(with view: RestaurantsListView) {
+        self.view = view
     }
     
     func viewDidLoad() async {
