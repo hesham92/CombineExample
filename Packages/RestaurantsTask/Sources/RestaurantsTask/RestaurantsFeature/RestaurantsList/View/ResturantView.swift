@@ -22,9 +22,9 @@ final class ResturantView: UIView {
         thumbnailImageView.kf.cancelDownloadTask()
     }
     
-    func configure(restaurant: Restaurant) {
-        restaurantNameLabel.text = restaurant.name
-        thumbnailImageView.kf.setImage(with: URL(string: restaurant.image))
+    func configure(viewModel: RestaurantViewModel) {
+        restaurantNameLabel.text = viewModel.name
+        thumbnailImageView.kf.setImage(with: URL(string: viewModel.image))
     }
 
     // MARK: - Private

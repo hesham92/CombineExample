@@ -17,25 +17,25 @@ final class ResturantCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.resturantView.prepareForReuse()
+        self.view.prepareForReuse()
     }
     
-    func configure(restaurant: Restaurant) {
-        self.resturantView.configure(restaurant: restaurant)
+    func configure(viewModel: RestaurantViewModel) {
+        self.view.configure(viewModel: viewModel)
     }
     
     // MARK: - Private
     private func configureView() {
-        addSubview(resturantView)
+        addSubview(view)
     }
     
     private func configureConstraints() {
-        resturantView.snp.makeConstraints {
+        view.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
     
-    private let resturantView = ResturantView() // Reason to sepearte view from cell to be reusable in any context
+    private let view = ResturantView() // Reason to sepearte view from cell to be reusable in any context
 }
 
 

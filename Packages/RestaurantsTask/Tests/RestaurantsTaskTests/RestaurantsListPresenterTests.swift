@@ -24,10 +24,10 @@ final class RestaurantsListPresenterTests: XCTestCase {
         
         //then
         
-        if case let .loaded(restaurants) = self.presenter.state {
-            XCTAssertTrue(restaurants.count == 2)
+        if case let .loaded(restaurantsViewModels) = self.presenter.state {
+            XCTAssertTrue(restaurantsViewModels.count == 2)
         } else {
-            XCTFail("Expected presenter state to be loaded with restaurants count = 2")
+            XCTFail("Expected presenter state to be loaded with restaurantsViewModels count = 2")
         }
     }
     

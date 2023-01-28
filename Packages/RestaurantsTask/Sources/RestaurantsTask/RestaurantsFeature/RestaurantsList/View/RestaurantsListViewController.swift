@@ -63,12 +63,12 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.delegate = self
         
-        let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, Restaurant> { cell, indexPath, restaurant in
-            cell.configure(restaurant: restaurant)
+        let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, RestaurantViewModel> { cell, indexPath, restaurantViewModel in
+            cell.configure(viewModel: restaurantViewModel)
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Section, Restaurant>(collectionView: collectionView) { collectionView, indexPath, user in
-            collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: user)
+        dataSource = UICollectionViewDiffableDataSource<Section, RestaurantViewModel>(collectionView: collectionView) { collectionView, indexPath, restaurantViewModel in
+            collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: restaurantViewModel)
         }
         
         return collectionView
@@ -82,7 +82,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     }()
     
     private let presenter: RestaurantsListPresenter
-    private var dataSource: UICollectionViewDiffableDataSource<Section, Restaurant>?
+    private var dataSource: UICollectionViewDiffableDataSource<Section, RestaurantViewModel>?
 }
 
 extension RestaurantsListViewController: RestaurantsListView {
@@ -93,7 +93,7 @@ extension RestaurantsListViewController: RestaurantsListView {
         case .loading:
             self.handleLoading(isLoading: true)
         case let .loaded(restaurants):
-            var snapshot = NSDiffableDataSourceSnapshot<Section, Restaurant>()
+            var snapshot = NSDiffableDataSourceSnapshot<Section, RestaurantViewModel>()
             snapshot.appendSections([.main])
             snapshot.appendItems(restaurants)
             self.dataSource?.apply(snapshot)

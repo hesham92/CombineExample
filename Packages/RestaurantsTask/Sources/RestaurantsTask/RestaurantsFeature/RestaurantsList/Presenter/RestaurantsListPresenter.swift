@@ -1,9 +1,15 @@
 import Foundation
 
+
+struct RestaurantViewModel: Equatable, Hashable {
+    let image: String
+    let name: String
+}
+
 enum RestaurantsListState: Equatable {
     case idle
     case loading
-    case loaded([Restaurant])
+    case loaded([RestaurantViewModel])
     case error(String)
 }
 
@@ -48,7 +54,7 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
             sortedRestaurants = restaurants.sorted { String($0.rating) > String($1.rating) }
         }
         
-        state = .loaded(sortedRestaurants)
+        state = .loaded(makeViewModel(restaurants: sortedRestaurants))
     }
     
     func configure(with viewDelegate: RestaurantsListView) {
@@ -66,11 +72,19 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         
         do {
             restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
-            state = .loaded(restaurants)
+            state = .loaded(makeViewModel(restaurants: restaurants))
         } catch {
             restaurants.removeAll()
             state = .error(error.localizedDescription)
         }
+    }
+    
+    private func makeViewModel(restaurants: [Restaurant]) -> [RestaurantViewModel] {
+        var restaurantsViewModels: [RestaurantViewModel] = []
+        for restaurant in restaurants {
+            restaurantsViewModels.append(RestaurantViewModel(image: restaurant.image, name: restaurant.name))
+        }
+        return restaurantsViewModels
     }
     
     enum SortingCriteria: Int, CaseIterable {
