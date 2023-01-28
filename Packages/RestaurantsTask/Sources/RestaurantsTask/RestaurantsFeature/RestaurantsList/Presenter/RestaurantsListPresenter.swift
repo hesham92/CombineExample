@@ -1,6 +1,5 @@
 import Foundation
 
-
 struct RestaurantViewModel: Equatable, Hashable {
     let image: String
     let name: String
