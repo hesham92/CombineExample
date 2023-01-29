@@ -68,7 +68,6 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
     @MainActor
     private func fetchRestaurants() async {
         state = .loading
-        
         do {
             restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
             state = .loaded(makeViewModel(restaurants: restaurants))
