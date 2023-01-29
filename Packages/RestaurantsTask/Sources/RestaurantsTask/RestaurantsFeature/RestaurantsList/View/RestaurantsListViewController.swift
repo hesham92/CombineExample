@@ -34,11 +34,18 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     private func configureView() {
         title = "Restaurants"
         view.backgroundColor = .white
-        view.addSubview(segmentedControl)
-        view.addSubview(collectionView)
+        containerView.backgroundColor = .white
+        
+        view.addSubview(containerView)
+        containerView.addSubview(segmentedControl)
+        containerView.addSubview(collectionView)
     }
     
     private func configureConstraints() {
+        containerView.snp.makeConstraints {
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
         segmentedControl.snp.makeConstraints {
             $0.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(collectionView.snp.top)
@@ -52,6 +59,15 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     @objc private func segmentedControlValueChanged() {
         presenter.didSelectSegmentAtIndex(segmentedControl.selectedSegmentIndex)
     }
+    
+    private let containerView = UIView()
+    
+    private lazy var segmentedControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: ["Default", "Distance", "Rating"])
+        control.selectedSegmentIndex = 0
+        control.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
+        return control
+    }()
     
     private lazy var collectionView: UICollectionView = {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -73,13 +89,6 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         return collectionView
     }()
     
-    private lazy var segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["Default", "Distance", "Rating"])
-        control.selectedSegmentIndex = 0
-        control.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
-        return control
-    }()
-    
     private let presenter: RestaurantsListPresenter
     private var dataSource: UICollectionViewDiffableDataSource<Section, RestaurantViewModel>?
 }
@@ -89,6 +98,8 @@ extension RestaurantsListViewController: RestaurantsListView {
         self.handleLoading(isLoading: false)
         
         switch presenter.state {
+        case .idle:
+            self.containerView.isHidden = true
         case .loading:
             self.handleLoading(isLoading: true)
         case let .loaded(restaurants):
@@ -96,10 +107,9 @@ extension RestaurantsListViewController: RestaurantsListView {
             snapshot.appendSections([.main])
             snapshot.appendItems(restaurants)
             self.dataSource?.apply(snapshot)
+            self.containerView.isHidden = false
         case let .error(viewModel):
             self.showError(viewModel: viewModel)
-        default:
-            break
         }
     }
     
