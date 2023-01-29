@@ -6,7 +6,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     init(presenter: RestaurantsListPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -52,7 +52,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     @objc private func segmentedControlValueChanged() {
         presenter.didSelectSegmentAtIndex(segmentedControl.selectedSegmentIndex)
     }
-        
+    
     private lazy var collectionView: UICollectionView = {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
@@ -87,7 +87,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
 extension RestaurantsListViewController: RestaurantsListView {
     func stateDidChange() {
         self.handleLoading(isLoading: false)
-
+        
         switch presenter.state {
         case .loading:
             self.handleLoading(isLoading: true)

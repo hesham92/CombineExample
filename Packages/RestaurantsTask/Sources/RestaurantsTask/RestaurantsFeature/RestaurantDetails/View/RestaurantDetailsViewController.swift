@@ -100,7 +100,7 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
         label.textAlignment = .center
         return label
     }()
-
+    
     private let presenter: RestaurantsDetailsPresenter
 }
 

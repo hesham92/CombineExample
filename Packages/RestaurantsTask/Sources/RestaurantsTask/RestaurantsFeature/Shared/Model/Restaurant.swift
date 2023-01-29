@@ -1,6 +1,6 @@
 import Foundation
 
-struct Restaurant: Codable, Equatable, Hashable {
+struct Restaurant: Codable {
     let image: String
     let name: String
     let description: String

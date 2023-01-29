@@ -6,11 +6,11 @@ final class ResturantView: UIView {
     // MARK: - Public
     init() {
         super.init(frame: .zero)
-
+        
         configureView()
         configureConstraints()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -27,13 +27,13 @@ final class ResturantView: UIView {
         thumbnailImageView.kf.indicatorType = .activity
         thumbnailImageView.kf.setImage(with: viewModel.imageURL)
     }
-
+    
     // MARK: - Private
     private func configureView() {
         addSubview(restaurantNameLabel)
         addSubview(thumbnailImageView)
     }
-
+    
     private func configureConstraints() {
         thumbnailImageView.snp.makeConstraints {
             $0.leading.top.bottom.equalToSuperview().inset(8)
@@ -45,7 +45,7 @@ final class ResturantView: UIView {
             $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(8)
         }
     }
-
+    
     private let restaurantNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2

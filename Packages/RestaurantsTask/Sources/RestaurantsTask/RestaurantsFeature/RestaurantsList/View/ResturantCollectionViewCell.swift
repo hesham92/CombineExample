@@ -8,12 +8,12 @@ final class ResturantCollectionViewCell: UICollectionViewCell {
         configureView()
         configureConstraints()
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         return nil
     }
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
