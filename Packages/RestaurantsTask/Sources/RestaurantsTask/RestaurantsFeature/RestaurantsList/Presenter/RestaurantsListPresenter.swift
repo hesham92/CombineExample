@@ -88,8 +88,8 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         return restaurantsViewModels
     }
     
-    private func makeErrorViewModel(error: Swift.Error) -> GenericErrorViewModel {
-        GenericErrorViewModel(onRetryTapped: { [weak self] in
+    private func makeErrorViewModel(error: Error) -> GenericErrorViewModel {
+        GenericErrorViewModel(description: error.localizedDescription, onRetryTapped: { [weak self] in
             guard let self else { return }
             Task {
                 await self.fetchRestaurants()
