@@ -28,10 +28,10 @@ final class DefaultRestaurantDetailsPresenter: RestaurantsDetailsPresenter {
     }
     
     func viewDidLoad() {
-        view?.updateUI(with: createViewModel(restaurant: restaurant))
+        view?.updateUI(with: makeViewModel(restaurant: restaurant))
     }
     
-    private func createViewModel(restaurant: Restaurant) -> RestaurantDetailsViewModel {
+    private func makeViewModel(restaurant: Restaurant) -> RestaurantDetailsViewModel {
         RestaurantDetailsViewModel(
             imageURL: URL(string: restaurant.image),
             name: restaurant.name,

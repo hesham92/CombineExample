@@ -96,8 +96,8 @@ extension RestaurantsListViewController: RestaurantsListView {
             snapshot.appendSections([.main])
             snapshot.appendItems(restaurants)
             self.dataSource?.apply(snapshot)
-        case let .error(errorMessage):
-            self.showErrorMessage(errorMessage)
+        case let .error(viewModel):
+            self.showError(viewModel: viewModel)
         default:
             break
         }

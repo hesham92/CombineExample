@@ -5,11 +5,11 @@ struct RestaurantViewModel: Equatable, Hashable {
     let name: String
 }
 
-enum RestaurantsListState: Equatable {
+enum RestaurantsListState {
     case idle
     case loading
     case loaded([RestaurantViewModel])
-    case error(String)
+    case error(GenericErrorViewModel)
 }
 
 protocol RestaurantsListPresenter {
@@ -53,7 +53,7 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
             sortedRestaurants = restaurants.sorted { String($0.rating) > String($1.rating) }
         }
         
-        state = .loaded(createViewModel(restaurants: sortedRestaurants))
+        state = .loaded(makeViewModel(restaurants: sortedRestaurants))
     }
     
     func configure(with view: RestaurantsListView) {
@@ -67,24 +67,34 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
     // MARK: - Private
     @MainActor
     private func fetchRestaurants() async {
-        self.state = .loading
+        state = .loading
         
         do {
             restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
-            state = .loaded(createViewModel(restaurants: restaurants))
+            state = .loaded(makeViewModel(restaurants: restaurants))
         } catch {
             restaurants.removeAll()
-            state = .error(error.localizedDescription)
+            
+            state = .error(makeErrorViewModel(error: error))
         }
     }
     
-    private func createViewModel(restaurants: [Restaurant]) -> [RestaurantViewModel] {
+    private func makeViewModel(restaurants: [Restaurant]) -> [RestaurantViewModel] {
         var restaurantsViewModels: [RestaurantViewModel] = []
         for restaurant in restaurants {
             restaurantsViewModels.append(RestaurantViewModel(imageURL: URL(string: restaurant.image), name: restaurant.name))
         }
         
         return restaurantsViewModels
+    }
+    
+    private func makeErrorViewModel(error: Swift.Error) -> GenericErrorViewModel {
+        GenericErrorViewModel(onRetryTapped: { [weak self] in
+            guard let self else { return }
+            Task {
+                await self.fetchRestaurants()
+            }
+        })
     }
     
     enum SortingCriteria: Int, CaseIterable {
