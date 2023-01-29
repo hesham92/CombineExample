@@ -16,13 +16,13 @@ final class RestaurantsListPresenterTests: XCTestCase {
     }
     
     func testFetchRestaurants_inCaseOfSuccess() async throws {
-        //given
+        //Given
         serviceMock.setResult(.success([Restaurant.mock(), Restaurant.mock()]))
         
-        //when
+        //When
         await presenter.viewDidLoad()
         
-        //then
+        //Then
         if case let .loaded(restaurantsViewModels) = self.presenter.state {
             XCTAssertTrue(restaurantsViewModels.count == 2)
         } else {
@@ -30,7 +30,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         }
     }
     
-    func testFetchRestaurants_inCaseOffailure() async throws {
+    func testFetchRestaurants_inCaseOfFailure() async throws {
         //Given
         serviceMock.setResult(Result<[Restaurant], Error>.failure(MockError()))
         
@@ -49,7 +49,6 @@ final class RestaurantsListPresenterTests: XCTestCase {
         //Given
         let selectedIndex = 0 // Default
         serviceMock.setResult(.success([Restaurant.mock(name: "Papa johns", rating: 3), Restaurant.mock(name: "KFC", rating: 4)]))
-
         
         //When
         await presenter.viewDidLoad()
@@ -60,7 +59,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
             XCTAssertTrue(restaurantsViewModels[0].name == "Papa johns")
             XCTAssertTrue(restaurantsViewModels[1].name == "KFC")
         } else {
-            XCTFail("There is wrong in sorting")
+            XCTFail("Expected presenter state to be loaded")
         }
     }
     
@@ -78,7 +77,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
             XCTAssertTrue(restaurantsViewModels[0].name == "KFC")
             XCTAssertTrue(restaurantsViewModels[1].name == "Papa johns")
         } else {
-            XCTFail("There is wrong in sorting")
+            XCTFail("Expected presenter state to be loaded")
         }
     }
     
@@ -86,7 +85,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         //Given
         let selectedIndex = 2 // rating
         serviceMock.setResult(.success([Restaurant.mock(name: "Papa johns", rating: 4), Restaurant.mock(name: "KFC", rating: 5)]))
-
+        
         //When
         await presenter.viewDidLoad()
         presenter.didSelectSegmentAtIndex(selectedIndex)
@@ -96,7 +95,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
             XCTAssertTrue(restaurantsViewModels[0].name == "KFC")
             XCTAssertTrue(restaurantsViewModels[1].name == "Papa johns")
         } else {
-            XCTFail("There is wrong in sorting")
+            XCTFail("Expected presenter state to be loaded")
         }
     }
 }
