@@ -48,9 +48,9 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         case .default, .none:
             sortedRestaurants = restaurants
         case .distance:
-            sortedRestaurants = restaurants.sorted { String($0.distance) < String($1.distance) }
+            sortedRestaurants = restaurants.sorted { $0.distance < $1.distance }
         case .rating:
-            sortedRestaurants = restaurants.sorted { String($0.rating) > String($1.rating) }
+            sortedRestaurants = restaurants.sorted { $0.rating > $1.rating }
         }
         
         state = .loaded(makeViewModel(restaurants: sortedRestaurants))
@@ -74,7 +74,6 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
             state = .loaded(makeViewModel(restaurants: restaurants))
         } catch {
             restaurants.removeAll()
-            
             state = .error(makeErrorViewModel(error: error))
         }
     }
@@ -84,7 +83,6 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         for restaurant in restaurants {
             restaurantsViewModels.append(RestaurantViewModel(imageURL: URL(string: restaurant.image), name: restaurant.name))
         }
-        
         return restaurantsViewModels
     }
     
