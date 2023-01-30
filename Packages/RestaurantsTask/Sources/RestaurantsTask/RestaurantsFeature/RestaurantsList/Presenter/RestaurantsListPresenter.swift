@@ -94,7 +94,7 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         })
     }
     
-    enum SortingCriteria: Int, CaseIterable {
+    private enum SortingCriteria: Int, CaseIterable {
         case `default` = 0
         case distance = 1
         case rating = 2

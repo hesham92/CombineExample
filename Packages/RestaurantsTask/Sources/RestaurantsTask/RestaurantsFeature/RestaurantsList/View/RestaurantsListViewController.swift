@@ -72,10 +72,8 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     private lazy var collectionView: UICollectionView = {
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .systemGroupedBackground
+        
         collectionView.delegate = self
         
         let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, RestaurantViewModel> { cell, indexPath, restaurantViewModel in
