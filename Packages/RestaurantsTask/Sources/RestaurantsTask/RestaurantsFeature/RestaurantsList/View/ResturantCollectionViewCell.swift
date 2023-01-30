@@ -17,11 +17,11 @@ final class ResturantCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.view.prepareForReuse()
+        view.prepareForReuse()
     }
     
     func configure(with viewModel: RestaurantViewModel) {
-        self.view.configure(with: viewModel)
+        view.configure(with: viewModel)
     }
     
     // MARK: - Private

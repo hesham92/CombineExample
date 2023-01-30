@@ -18,31 +18,31 @@ final class ResturantView: UIView {
     
     func prepareForReuse() {
         restaurantNameLabel.text = ""
-        thumbnailImageView.image = nil
-        thumbnailImageView.kf.cancelDownloadTask()
+        restaurantImageView.image = nil
+        restaurantImageView.kf.cancelDownloadTask()
     }
     
     func configure(with viewModel: RestaurantViewModel) {
         restaurantNameLabel.text = viewModel.name
-        thumbnailImageView.kf.indicatorType = .activity
-        thumbnailImageView.kf.setImage(with: viewModel.imageURL)
+        restaurantImageView.kf.indicatorType = .activity
+        restaurantImageView.kf.setImage(with: viewModel.imageURL)
     }
     
     // MARK: - Private
     private func configureView() {
         addSubview(restaurantNameLabel)
-        addSubview(thumbnailImageView)
+        addSubview(restaurantImageView)
     }
     
     private func configureConstraints() {
-        thumbnailImageView.snp.makeConstraints {
+        restaurantImageView.snp.makeConstraints {
             $0.leading.top.bottom.equalToSuperview().inset(8)
             $0.size.width.equalTo(160)
         }
         
         restaurantNameLabel.snp.makeConstraints {
-            $0.centerY.equalTo(thumbnailImageView.snp.centerY)
-            $0.leading.equalTo(thumbnailImageView.snp.trailing).offset(8)
+            $0.centerY.equalTo(restaurantImageView.snp.centerY)
+            $0.leading.equalTo(restaurantImageView.snp.trailing).offset(8)
         }
     }
     
@@ -52,7 +52,7 @@ final class ResturantView: UIView {
         return label
     }()
     
-    private let thumbnailImageView: UIImageView = {
+    private let restaurantImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
