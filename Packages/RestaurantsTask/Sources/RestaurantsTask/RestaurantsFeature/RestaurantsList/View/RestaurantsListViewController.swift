@@ -93,21 +93,21 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
 
 extension RestaurantsListViewController: RestaurantsListView {
     func stateDidChange() {
-        self.handleLoading(isLoading: false)
+        handleLoading(isLoading: false)
         
         switch presenter.state {
         case .idle:
-            self.containerView.isHidden = true
+            containerView.isHidden = true
         case .loading:
-            self.handleLoading(isLoading: true)
+            handleLoading(isLoading: true)
         case let .loaded(restaurants):
             var snapshot = NSDiffableDataSourceSnapshot<Section, RestaurantViewModel>()
             snapshot.appendSections([.main])
             snapshot.appendItems(restaurants)
-            self.dataSource?.apply(snapshot)
-            self.containerView.isHidden = false
+            dataSource?.apply(snapshot)
+            containerView.isHidden = false
         case let .error(viewModel):
-            self.showError(viewModel: viewModel)
+            showError(viewModel: viewModel)
         }
     }
     

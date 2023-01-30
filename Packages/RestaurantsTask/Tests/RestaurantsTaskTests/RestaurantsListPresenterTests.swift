@@ -23,7 +23,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         await presenter.viewDidLoad()
         
         //Then
-        if case let .loaded(restaurantsViewModels) = self.presenter.state {
+        if case let .loaded(restaurantsViewModels) = presenter.state {
             XCTAssertTrue(restaurantsViewModels.count == 2)
         } else {
             XCTFail("Expected presenter state to be loaded with restaurantsViewModels count = 2")
@@ -38,7 +38,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         await presenter.viewDidLoad()
         
         //Then
-        if case let .error(model) = self.presenter.state {
+        if case let .error(model) = presenter.state {
             XCTAssertFalse(model.description.isEmpty)
         } else {
             XCTFail("Expect errorDesc is not empty")
@@ -55,7 +55,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         presenter.didSelectSegmentAtIndex(selectedIndex)
         
         //Then
-        if case let .loaded(restaurantsViewModels) = self.presenter.state {
+        if case let .loaded(restaurantsViewModels) = presenter.state {
             XCTAssertTrue(restaurantsViewModels[0].name == "Papa johns")
             XCTAssertTrue(restaurantsViewModels[1].name == "KFC")
         } else {
@@ -73,7 +73,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         presenter.didSelectSegmentAtIndex(selectedIndex)
         
         //Then
-        if case let .loaded(restaurantsViewModels) = self.presenter.state {
+        if case let .loaded(restaurantsViewModels) = presenter.state {
             XCTAssertTrue(restaurantsViewModels[0].name == "KFC")
             XCTAssertTrue(restaurantsViewModels[1].name == "Papa johns")
         } else {
@@ -91,7 +91,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         presenter.didSelectSegmentAtIndex(selectedIndex)
         
         //Then
-        if case let .loaded(restaurantsViewModels) = self.presenter.state {
+        if case let .loaded(restaurantsViewModels) = presenter.state {
             XCTAssertTrue(restaurantsViewModels[0].name == "KFC")
             XCTAssertTrue(restaurantsViewModels[1].name == "Papa johns")
         } else {
