@@ -78,6 +78,11 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     }()
     
     private let presenter: RestaurantsListPresenter
+    
+    private enum Section {
+        case main
+    }
+    
     private lazy var dataSource: UICollectionViewDiffableDataSource<Section, RestaurantViewModel> = {
         let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, RestaurantViewModel> { cell, indexPath, restaurantViewModel in
             cell.configure(with: restaurantViewModel)
@@ -119,11 +124,5 @@ extension RestaurantsListViewController: RestaurantsListView {
 extension RestaurantsListViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectRestaurantAtIndex(indexPath.row)
-    }
-}
-
-extension RestaurantsListViewController {
-    enum Section {
-        case main
     }
 }
