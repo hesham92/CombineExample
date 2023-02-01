@@ -73,22 +73,21 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        
         collectionView.delegate = self
-        
-        let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, RestaurantViewModel> { cell, indexPath, restaurantViewModel in
-            cell.configure(with: restaurantViewModel)
-        }
-        
-        dataSource = UICollectionViewDiffableDataSource<Section, RestaurantViewModel>(collectionView: collectionView) { collectionView, indexPath, restaurantViewModel in
-            collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: restaurantViewModel)
-        }
-        
         return collectionView
     }()
     
     private let presenter: RestaurantsListPresenter
-    private var dataSource: UICollectionViewDiffableDataSource<Section, RestaurantViewModel>?
+    private lazy var dataSource: UICollectionViewDiffableDataSource<Section, RestaurantViewModel> = {
+        let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, RestaurantViewModel> { cell, indexPath, restaurantViewModel in
+            cell.configure(with: restaurantViewModel)
+        }
+        
+        let  dataSource = UICollectionViewDiffableDataSource<Section, RestaurantViewModel>(collectionView: collectionView) { collectionView, indexPath, restaurantViewModel in
+            collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: restaurantViewModel)
+        }
+        return dataSource
+    }()
 }
 
 extension RestaurantsListViewController: RestaurantsListView {
@@ -104,7 +103,7 @@ extension RestaurantsListViewController: RestaurantsListView {
             var snapshot = NSDiffableDataSourceSnapshot<Section, RestaurantViewModel>()
             snapshot.appendSections([.main])
             snapshot.appendItems(restaurants)
-            dataSource?.apply(snapshot)
+            dataSource.apply(snapshot)
             containerView.isHidden = false
         case let .error(viewModel):
             showError(viewModel: viewModel)
