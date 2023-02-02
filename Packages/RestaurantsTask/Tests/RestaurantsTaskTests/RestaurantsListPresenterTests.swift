@@ -5,17 +5,17 @@ final class RestaurantsListPresenterTests: XCTestCase {
     var presenter: RestaurantsListPresenter!
     var serviceMock: HttpServiceMock!
     
-    override func setUpWithError() throws {
+    override func setUp()  {
         serviceMock = HttpServiceMock()
         presenter = DefaultRestaurantsListPresenter(service: serviceMock)
     }
     
-    override func tearDownWithError() throws {
+    override func tearDown() {
         serviceMock = nil
         presenter = nil
     }
     
-    func testFetchRestaurants_inCaseOfSuccess() async throws {
+    func testFetchRestaurants_inCaseOfSuccess() async {
         //Given
         serviceMock.setResult(.success([Restaurant.mock(), Restaurant.mock()]))
         
@@ -30,7 +30,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         }
     }
     
-    func testFetchRestaurants_inCaseOfFailure() async throws {
+    func testFetchRestaurants_inCaseOfFailure() async {
         //Given
         serviceMock.setResult(Result<[Restaurant], Error>.failure(MockError()))
         
@@ -45,7 +45,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         }
     }
     
-    func testDidSelectSegmentAtIndex_defaultCase() async throws {
+    func testDidSelectSegmentAtIndex_defaultCase() async {
         //Given
         let selectedIndex = 0 // Default
         serviceMock.setResult(.success([Restaurant.mock(name: "Papa johns", rating: 3), Restaurant.mock(name: "KFC", rating: 4)]))
@@ -63,7 +63,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         }
     }
     
-    func testDidSelectSegmentAtIndex_distanceCase() async throws {
+    func testDidSelectSegmentAtIndex_distanceCase() async {
         //Given
         let selectedIndex = 1 // distance
         serviceMock.setResult(.success([Restaurant.mock(name: "Papa johns", distance: 1000), Restaurant.mock(name: "KFC", distance: 800)]))
@@ -81,7 +81,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         }
     }
     
-    func testDidSelectSegmentAtIndex_ratingCase() async throws {
+    func testDidSelectSegmentAtIndex_ratingCase() async {
         //Given
         let selectedIndex = 2 // rating
         serviceMock.setResult(.success([Restaurant.mock(name: "Papa johns", rating: 4), Restaurant.mock(name: "KFC", rating: 5)]))
