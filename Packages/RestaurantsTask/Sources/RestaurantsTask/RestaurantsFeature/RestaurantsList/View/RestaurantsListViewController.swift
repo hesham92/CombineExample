@@ -1,5 +1,6 @@
 import UIKit
 import SnapKit
+import Combine
 
 public class RestaurantsListViewController: UIViewController, LoadingViewShowing, ErrorViewShowing, UIActionSheetDelegate {
     // MARK: - Public
@@ -7,8 +8,8 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(presenter: RestaurantsListPresenter) {
-        self.presenter = presenter
+    init(viewModel: RestaurantsListViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -17,16 +18,16 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         
         configureView()
         configureConstraints()
+        setupBindings()
         
-        presenter.configure(with: self)
         Task {
-            await presenter.viewDidLoad()
+            await viewModel.viewDidLoad()
         }
     }
     
     public static func makeViewController() -> RestaurantsListViewController {
-        let presenter = DefaultRestaurantsListPresenter()
-        let viewController = RestaurantsListViewController(presenter: presenter)
+        let viewModel = RestaurantsListViewModel()
+        let viewController = RestaurantsListViewController(viewModel: viewModel)
         return viewController
     }
     
@@ -57,7 +58,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     }
     
     @objc private func segmentedControlValueChanged() {
-        presenter.didSelectSegmentAtIndex(segmentedControl.selectedSegmentIndex)
+        viewModel.didSelectSegmentAtIndex(segmentedControl.selectedSegmentIndex)
     }
     
     private let containerView = UIView()
@@ -77,52 +78,57 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         return collectionView
     }()
     
-    private let presenter: RestaurantsListPresenter
+    private let viewModel: RestaurantsListViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     private enum Section {
         case main
     }
     
-    private lazy var dataSource: UICollectionViewDiffableDataSource<Section, RestaurantViewModel> = {
-        let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, RestaurantViewModel> { cell, indexPath, restaurantViewModel in
-            cell.configure(with: restaurantViewModel)
+    private lazy var dataSource: UICollectionViewDiffableDataSource<Section, Restaurant> = {
+        let registration = UICollectionView.CellRegistration<ResturantCollectionViewCell, Restaurant> { cell, indexPath, restaurant in
+            cell.configure(with: restaurant)
         }
         
-        let  dataSource = UICollectionViewDiffableDataSource<Section, RestaurantViewModel>(collectionView: collectionView) { collectionView, indexPath, restaurantViewModel in
-            collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: restaurantViewModel)
+        let  dataSource = UICollectionViewDiffableDataSource<Section, Restaurant>(collectionView: collectionView) { collectionView, indexPath, restaurant in
+            collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: restaurant)
         }
         return dataSource
     }()
 }
 
-extension RestaurantsListViewController: RestaurantsListView {
-    func stateDidChange() {
-        handleLoading(isLoading: false)
+extension RestaurantsListViewController {
+    func setupBindings() {
+        viewModel.$state.sink { [weak self] state in
+            guard let self else { return }
+            switch state {
+            case .idle:
+                self.containerView.isHidden = true
+            case .loading:
+                self.handleLoading(isLoading: true)
+            case let .loaded(restaurants):
+                self.handleLoading(isLoading: false)
+                var snapshot = NSDiffableDataSourceSnapshot<Section, Restaurant>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(restaurants)
+                self.dataSource.apply(snapshot)
+                self.containerView.isHidden = false
+            case let .error(viewModel):
+                self.handleLoading(isLoading: false)
+                self.showError(viewModel: viewModel)
+            }
+        }.store(in: &cancellables)
         
-        switch presenter.state {
-        case .idle:
-            containerView.isHidden = true
-        case .loading:
-            handleLoading(isLoading: true)
-        case let .loaded(restaurants):
-            var snapshot = NSDiffableDataSourceSnapshot<Section, RestaurantViewModel>()
-            snapshot.appendSections([.main])
-            snapshot.appendItems(restaurants)
-            dataSource.apply(snapshot)
-            containerView.isHidden = false
-        case let .error(viewModel):
-            showError(viewModel: viewModel)
-        }
-    }
-    
-    func navigateToRestaurantDetails(restaurant: Restaurant) {
-        let viewController = RestaurantDetailsViewController.makeViewController(restaurant: restaurant)
-        navigationController?.pushViewController(viewController, animated: true)
+        viewModel.$navigateToRestaurantDetails.compactMap{ $0 }.sink {[weak self] restaurant in
+            guard let self else { return }
+            let viewController = RestaurantDetailsViewController.makeViewController(restaurant: restaurant)
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }.store(in: &cancellables)
     }
 }
 
 extension RestaurantsListViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.didSelectRestaurantAtIndex(indexPath.row)
+        viewModel.didSelectRestaurantAtIndex(indexPath.row)
     }
 }

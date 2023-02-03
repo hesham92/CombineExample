@@ -22,10 +22,10 @@ final class ResturantView: UIView {
         restaurantImageView.kf.cancelDownloadTask()
     }
     
-    func configure(with viewModel: RestaurantViewModel) {
-        restaurantNameLabel.text = viewModel.name
+    func configure(with restaurant: Restaurant) {
+        restaurantNameLabel.text = restaurant.name
         restaurantImageView.kf.indicatorType = .activity
-        restaurantImageView.kf.setImage(with: viewModel.imageURL)
+        restaurantImageView.kf.setImage(with: URL(string: restaurant.image))
     }
     
     // MARK: - Private

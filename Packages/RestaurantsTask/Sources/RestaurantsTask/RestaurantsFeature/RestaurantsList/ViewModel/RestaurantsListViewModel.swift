@@ -8,37 +8,21 @@ struct RestaurantViewModel: Equatable, Hashable {
 enum RestaurantsListState {
     case idle
     case loading
-    case loaded([RestaurantViewModel])
+    case loaded([Restaurant])
     case error(GenericErrorViewModel)
 }
 
-protocol RestaurantsListPresenter {
-    var state: RestaurantsListState { get }
-    func configure(with view: RestaurantsListView)
-    func didSelectRestaurantAtIndex(_ index: Int)
-    func didSelectSegmentAtIndex(_ index: Int)
-    func viewDidLoad() async
-}
-
-protocol RestaurantsListView: AnyObject {
-    func stateDidChange()
-    func navigateToRestaurantDetails(restaurant: Restaurant)
-}
-
-final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
+final class RestaurantsListViewModel {
     // MARK: - Public
     init(service: HttpServiceProtocol = HttpService()){
         self.service = service
     }
     
-    private(set) var state: RestaurantsListState = .idle {
-        didSet {
-            view?.stateDidChange()
-        }
-    }
+    @Published private(set) var state: RestaurantsListState = .idle
+    @Published private(set) var navigateToRestaurantDetails: Restaurant?
     
     func didSelectRestaurantAtIndex(_ index: Int) {
-        view?.navigateToRestaurantDetails(restaurant: restaurants[index])
+        navigateToRestaurantDetails = restaurants[index]
     }
     
     func didSelectSegmentAtIndex(_ index: Int) {
@@ -53,11 +37,7 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
             sortedRestaurants = restaurants.sorted { $0.rating > $1.rating }
         }
         
-        state = .loaded(makeViewModel(restaurants: sortedRestaurants))
-    }
-    
-    func configure(with view: RestaurantsListView) {
-        self.view = view
+        state = .loaded(sortedRestaurants)
     }
     
     func viewDidLoad() async {
@@ -70,19 +50,11 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
         state = .loading
         do {
             restaurants = try await service.request(endpoint: RestaurantsEndpoint.getRestaurants, modelType: [Restaurant].self)
-            state = .loaded(makeViewModel(restaurants: restaurants))
+            state = .loaded(restaurants)
         } catch {
             restaurants.removeAll()
             state = .error(makeErrorViewModel(error: error))
         }
-    }
-    
-    private func makeViewModel(restaurants: [Restaurant]) -> [RestaurantViewModel] {
-        var restaurantsViewModels: [RestaurantViewModel] = []
-        for restaurant in restaurants {
-            restaurantsViewModels.append(RestaurantViewModel(imageURL: URL(string: restaurant.image), name: restaurant.name))
-        }
-        return restaurantsViewModels
     }
     
     private func makeErrorViewModel(error: Error) -> GenericErrorViewModel {
@@ -101,6 +73,5 @@ final class DefaultRestaurantsListPresenter: RestaurantsListPresenter {
     }
     
     private let service: HttpServiceProtocol
-    private weak var view: RestaurantsListView?
     private var restaurants: [Restaurant] = []
 }

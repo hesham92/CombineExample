@@ -7,8 +7,8 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(presenter: RestaurantsDetailsPresenter) {
-        self.presenter = presenter
+    init(restaurant: Restaurant) {
+        self.restaurant = restaurant
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -18,14 +18,11 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
         
         configureView()
         configureConstraints()
-        
-        presenter.configure(with: self)
-        presenter.viewDidLoad()
+        updateUI(with: restaurant)
     }
     
     static func makeViewController(restaurant: Restaurant) -> RestaurantDetailsViewController {
-        let presenter = DefaultRestaurantDetailsPresenter(restaurant: restaurant)
-        let viewController = RestaurantDetailsViewController(presenter: presenter)
+        let viewController = RestaurantDetailsViewController(restaurant: restaurant)
         return viewController
     }
     
@@ -53,6 +50,14 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
             $0.top.equalTo(nameAndDescriptionstackView.snp.bottom).offset(20)
             $0.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide)
         }
+    }
+    
+    private func updateUI(with restaurant: Restaurant) {
+        restaurantImageView.kf.setImage(with: URL(string: restaurant.image))
+        restaurantNameLabel.text = restaurant.name
+        restaurantDescriptionLabel.text = restaurant.description
+        restaurantHoursLabel.text = restaurant.hours
+        restaurantRatingLabel.text = String(restaurant.rating)
     }
     
     private let restaurantImageView: UIImageView = {
@@ -101,15 +106,5 @@ class RestaurantDetailsViewController: UIViewController, ErrorViewShowing {
         return label
     }()
     
-    private let presenter: RestaurantsDetailsPresenter
-}
-
-extension RestaurantDetailsViewController: RestaurantsDetailsView {
-    func updateUI(with viewModel: RestaurantDetailsViewModel) {
-        restaurantImageView.kf.setImage(with: viewModel.imageURL)
-        restaurantNameLabel.text = viewModel.name
-        restaurantDescriptionLabel.text = viewModel.description
-        restaurantHoursLabel.text = viewModel.hours
-        restaurantRatingLabel.text = String(viewModel.rating)
-    }
+    private let restaurant: Restaurant
 }
