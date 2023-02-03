@@ -66,7 +66,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
     func testDidSelectSegmentAtIndex_distanceCase() async {
         //Given
         let selectedIndex = 1 // distance
-        serviceMock.setResult(.success([Restaurant.mock(name: "Papa johns", distance: 1001), Restaurant.mock(name: "KFC", distance: 800)]))
+        serviceMock.setResult(.success([Restaurant.mock(name: "Papa johns", distance: 1000), Restaurant.mock(name: "KFC", distance: 800)]))
         
         //When
         await presenter.viewDidLoad()
