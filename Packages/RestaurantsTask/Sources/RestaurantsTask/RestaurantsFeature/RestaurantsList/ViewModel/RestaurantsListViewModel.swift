@@ -40,7 +40,7 @@ final class RestaurantsListViewModel {
         $didSelectSegmentAtIndex
             .compactMap { $0 }
             .map{ [weak self] index in
-                guard let self else { return .loaded([])}
+                guard let self else { return .loaded([]) }
                 var sortedRestaurants: [Restaurant] = []
                 
                 switch SortingCriteria(rawValue: index) {
