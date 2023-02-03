@@ -58,7 +58,7 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     }
     
     @objc private func segmentedControlValueChanged() {
-        viewModel.didSelectSegmentAtIndex(segmentedControl.selectedSegmentIndex)
+        viewModel.didSelectSegmentAtIndex = segmentedControl.selectedSegmentIndex
     }
     
     private let containerView = UIView()
@@ -129,6 +129,6 @@ extension RestaurantsListViewController {
 
 extension RestaurantsListViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.didSelectRestaurantAtIndex(indexPath.row)
+        viewModel.didSelectRestaurantAtIndex = indexPath.row
     }
 }

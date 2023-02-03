@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 struct RestaurantViewModel: Equatable, Hashable {
     let imageURL: URL?
@@ -16,35 +17,46 @@ final class RestaurantsListViewModel {
     // MARK: - Public
     init(service: HttpServiceProtocol = HttpService()){
         self.service = service
+        
+        oberveActions()
     }
     
     @Published private(set) var state: RestaurantsListState = .idle
     @Published private(set) var navigateToRestaurantDetails: Restaurant?
-    
-    func didSelectRestaurantAtIndex(_ index: Int) {
-        navigateToRestaurantDetails = restaurants[index]
-    }
-    
-    func didSelectSegmentAtIndex(_ index: Int) {
-        var sortedRestaurants: [Restaurant] = []
-        
-        switch SortingCriteria(rawValue: index) {
-        case .default, .none:
-            sortedRestaurants = restaurants
-        case .distance:
-            sortedRestaurants = restaurants.sorted { $0.distance < $1.distance }
-        case .rating:
-            sortedRestaurants = restaurants.sorted { $0.rating > $1.rating }
-        }
-        
-        state = .loaded(sortedRestaurants)
-    }
+    @Published var didSelectRestaurantAtIndex: Int?
+    @Published var didSelectSegmentAtIndex: Int?
     
     func viewDidLoad() async {
         await fetchRestaurants()
     }
     
     // MARK: - Private
+    private func oberveActions() {
+        $didSelectRestaurantAtIndex
+            .compactMap { $0 }
+            .map{ [weak self] in self?.restaurants[$0]}
+            .assign(to: &$navigateToRestaurantDetails)
+        
+        $didSelectSegmentAtIndex
+            .compactMap { $0 }
+            .map{ [weak self] index in
+                guard let self else { return .loaded([])}
+                var sortedRestaurants: [Restaurant] = []
+                
+                switch SortingCriteria(rawValue: index) {
+                case .default, .none:
+                    sortedRestaurants = self.restaurants
+                case .distance:
+                    sortedRestaurants = self.restaurants.sorted { $0.distance < $1.distance }
+                case .rating:
+                    sortedRestaurants = self.restaurants.sorted { $0.rating > $1.rating }
+                }
+                
+                return .loaded(sortedRestaurants)
+            }
+            .assign(to: &$state)
+    }
+    
     @MainActor
     private func fetchRestaurants() async {
         state = .loading

@@ -52,7 +52,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         
         //When
         await viewModel.viewDidLoad()
-        viewModel.didSelectSegmentAtIndex(selectedIndex)
+        viewModel.didSelectSegmentAtIndex = selectedIndex
         
         //Then
         if case let .loaded(restaurantsViewModels) = viewModel.state {
@@ -70,7 +70,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         
         //When
         await viewModel.viewDidLoad()
-        viewModel.didSelectSegmentAtIndex(selectedIndex)
+        viewModel.didSelectSegmentAtIndex = selectedIndex
         
         //Then
         if case let .loaded(restaurantsViewModels) = viewModel.state {
@@ -88,7 +88,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         
         //When
         await viewModel.viewDidLoad()
-        viewModel.didSelectSegmentAtIndex(selectedIndex)
+        viewModel.didSelectSegmentAtIndex = selectedIndex
         
         //Then
         if case let .loaded(restaurantsViewModels) = viewModel.state {
@@ -106,7 +106,7 @@ final class RestaurantsListPresenterTests: XCTestCase {
         
         //When
         await viewModel.viewDidLoad()
-        viewModel.didSelectRestaurantAtIndex(selectedIndex)
+        viewModel.didSelectRestaurantAtIndex = selectedIndex
         
         //Then
         XCTAssertTrue(viewModel.navigateToRestaurantDetails?.name == "KFC")
