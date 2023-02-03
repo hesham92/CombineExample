@@ -11,10 +11,10 @@ protocol Endpoint {
 
 extension Endpoint {
     func urlRequest() -> URLRequest {
-        let urlPath = [self.baseURL.absoluteString, self.path].joined()
+        let urlPath = [baseURL.absoluteString, path].joined()
         let url = URL(string: urlPath)!
         var request = URLRequest(url: url)
-        request.httpMethod = self.method.rawValue
+        request.httpMethod = method.rawValue
         
         self.headers.forEach { header in
             request.addValue(header.value, forHTTPHeaderField: header.key)

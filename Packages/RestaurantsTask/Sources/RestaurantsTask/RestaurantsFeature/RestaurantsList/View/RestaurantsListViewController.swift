@@ -78,9 +78,6 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         return collectionView
     }()
     
-    private let viewModel: RestaurantsListViewModel
-    private var cancellables = Set<AnyCancellable>()
-    
     private enum Section {
         case main
     }
@@ -95,6 +92,9 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         }
         return dataSource
     }()
+    
+    private let viewModel: RestaurantsListViewModel
+    private var cancellables = Set<AnyCancellable>()
 }
 
 extension RestaurantsListViewController {

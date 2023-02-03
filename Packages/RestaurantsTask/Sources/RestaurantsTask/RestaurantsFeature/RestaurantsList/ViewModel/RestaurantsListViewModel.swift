@@ -18,7 +18,7 @@ final class RestaurantsListViewModel {
     init(service: HttpServiceProtocol = HttpService()){
         self.service = service
         
-        oberveActions()
+        observeActions()
     }
     
     @Published private(set) var state: RestaurantsListState = .idle
@@ -31,7 +31,7 @@ final class RestaurantsListViewModel {
     }
     
     // MARK: - Private
-    private func oberveActions() {
+    private func observeActions() {
         $didSelectRestaurantAtIndex
             .compactMap { $0 }
             .map{ [weak self] in self?.restaurants[$0]}

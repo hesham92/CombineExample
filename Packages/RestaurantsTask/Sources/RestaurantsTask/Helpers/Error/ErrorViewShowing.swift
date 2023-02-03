@@ -1,6 +1,5 @@
 import UIKit
 
-
 struct GenericErrorViewModel {
     let onRetryTapped: (() -> Void)?
     let title: String
