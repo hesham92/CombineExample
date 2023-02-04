@@ -36,8 +36,6 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         viewModel.$state.sink { [weak self] state in
             guard let self else { return }
             switch state {
-            case .idle:
-                self.containerView.isHidden = true
             case .loading:
                 self.handleLoading(isLoading: true)
             case let .loaded(restaurants):
@@ -46,10 +44,11 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
                 snapshot.appendSections([.main])
                 snapshot.appendItems(restaurants)
                 self.dataSource.apply(snapshot)
-                self.containerView.isHidden = false
             case let .error(viewModel):
                 self.handleLoading(isLoading: false)
                 self.showError(viewModel: viewModel)
+            default:
+                break
             }
         }.store(in: &cancellables)
         
@@ -63,18 +62,11 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     private func configureView() {
         title = "Restaurants"
         view.backgroundColor = .white
-        containerView.backgroundColor = .white
-        
-        view.addSubview(containerView)
-        containerView.addSubview(segmentedControl)
-        containerView.addSubview(collectionView)
+        view.addSubview(segmentedControl)
+        view.addSubview(collectionView)
     }
     
     private func configureConstraints() {
-        containerView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-        
         segmentedControl.snp.makeConstraints {
             $0.leading.trailing.top.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(collectionView.snp.top)
@@ -119,7 +111,6 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         return dataSource
     }()
     
-    private let containerView = UIView()
     private let viewModel: RestaurantsListViewModel
     private var cancellables = Set<AnyCancellable>()
 }
