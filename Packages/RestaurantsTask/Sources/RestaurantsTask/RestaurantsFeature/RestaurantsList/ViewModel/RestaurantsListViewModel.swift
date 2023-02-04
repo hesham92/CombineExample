@@ -15,16 +15,17 @@ enum RestaurantsListState {
 
 final class RestaurantsListViewModel {
     // MARK: - Public
-    init(service: HttpServiceProtocol = HttpService()){
-        self.service = service
-        
-        observeActions()
-    }
     
     @Published private(set) var state: RestaurantsListState = .idle
     @Published private(set) var navigateToRestaurantDetails: Restaurant?
     @Published var didSelectRestaurantAtIndex: Int?
     @Published var didSelectSegmentAtIndex: Int?
+    
+    init(service: HttpServiceProtocol = HttpService()){
+        self.service = service
+        
+        observeActions()
+    }
     
     func viewDidLoad() async {
         await fetchRestaurants()
