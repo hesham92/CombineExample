@@ -34,7 +34,7 @@ final class RestaurantsListViewModel {
     private func observeActions() {
         $didSelectRestaurantAtIndex
             .compactMap { $0 }
-            .map{ [weak self] in self?.restaurants[$0]}
+            .map{ [weak self] in self?.restaurants[$0] }
             .assign(to: &$navigateToRestaurantDetails)
         
         $didSelectSegmentAtIndex
