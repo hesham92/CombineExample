@@ -32,6 +32,34 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     }
     
     // MARK: - Private
+    private func setupBindings() {
+        viewModel.$state.sink { [weak self] state in
+            guard let self else { return }
+            switch state {
+            case .idle:
+                self.containerView.isHidden = true
+            case .loading:
+                self.handleLoading(isLoading: true)
+            case let .loaded(restaurants):
+                self.handleLoading(isLoading: false)
+                var snapshot = NSDiffableDataSourceSnapshot<Section, Restaurant>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(restaurants)
+                self.dataSource.apply(snapshot)
+                self.containerView.isHidden = false
+            case let .error(viewModel):
+                self.handleLoading(isLoading: false)
+                self.showError(viewModel: viewModel)
+            }
+        }.store(in: &cancellables)
+        
+        viewModel.$navigateToRestaurantDetails.compactMap{ $0 }.sink { [weak self] restaurant in
+            guard let self else { return }
+            let viewController = RestaurantDetailsViewController.makeViewController(restaurant: restaurant)
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }.store(in: &cancellables)
+    }
+    
     private func configureView() {
         title = "Restaurants"
         view.backgroundColor = .white
@@ -60,8 +88,6 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
     @objc private func segmentedControlValueChanged() {
         viewModel.didSelectSegmentAtIndex = segmentedControl.selectedSegmentIndex
     }
-    
-    private let containerView = UIView()
     
     private lazy var segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: ["Default", "Distance", "Rating"])
@@ -93,38 +119,9 @@ public class RestaurantsListViewController: UIViewController, LoadingViewShowing
         return dataSource
     }()
     
+    private let containerView = UIView()
     private let viewModel: RestaurantsListViewModel
     private var cancellables = Set<AnyCancellable>()
-}
-
-extension RestaurantsListViewController {
-    func setupBindings() {
-        viewModel.$state.sink { [weak self] state in
-            guard let self else { return }
-            switch state {
-            case .idle:
-                self.containerView.isHidden = true
-            case .loading:
-                self.handleLoading(isLoading: true)
-            case let .loaded(restaurants):
-                self.handleLoading(isLoading: false)
-                var snapshot = NSDiffableDataSourceSnapshot<Section, Restaurant>()
-                snapshot.appendSections([.main])
-                snapshot.appendItems(restaurants)
-                self.dataSource.apply(snapshot)
-                self.containerView.isHidden = false
-            case let .error(viewModel):
-                self.handleLoading(isLoading: false)
-                self.showError(viewModel: viewModel)
-            }
-        }.store(in: &cancellables)
-        
-        viewModel.$navigateToRestaurantDetails.compactMap{ $0 }.sink {[weak self] restaurant in
-            guard let self else { return }
-            let viewController = RestaurantDetailsViewController.makeViewController(restaurant: restaurant)
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }.store(in: &cancellables)
-    }
 }
 
 extension RestaurantsListViewController: UICollectionViewDelegate {
