@@ -1,7 +1,7 @@
 import XCTest
 @testable import RestaurantsTask
 
-final class RestaurantsListPresenterTests: XCTestCase {
+final class RestaurantsListViewModelTests: XCTestCase {
     var viewModel: RestaurantsListViewModel!
     var serviceMock: HttpServiceMock!
     
@@ -17,16 +17,20 @@ final class RestaurantsListPresenterTests: XCTestCase {
     
     func testFetchRestaurants_inCaseOfSuccess() async {
         //Given
-        serviceMock.setResult(.success([Restaurant.mock(), Restaurant.mock()]))
+        serviceMock.setResult(.success([Restaurant.mock(name: "Papa johns", rating: 3), Restaurant.mock(name: "KFC", rating: 4)]))
         
         //When
         await viewModel.viewDidLoad()
         
         //Then
-        if case let .loaded(restaurantsViewModels) = viewModel.state {
-            XCTAssertTrue(restaurantsViewModels.count == 2)
+        if case let .loaded(restaurants) = viewModel.state {
+            XCTAssertTrue(restaurants.count == 2)
+            XCTAssertTrue(restaurants[0].name == "Papa johns")
+            XCTAssertTrue(restaurants[1].name == "KFC")
+            XCTAssertTrue(restaurants[0].rating == 3)
+            XCTAssertTrue(restaurants[1].rating == 4)
         } else {
-            XCTFail("Expected presenter state to be loaded with restaurantsViewModels count = 2")
+            XCTFail("Expected state to be loaded with restaurants count = 2")
         }
     }
     
@@ -55,11 +59,11 @@ final class RestaurantsListPresenterTests: XCTestCase {
         viewModel.didSelectSegmentAtIndex = selectedIndex
         
         //Then
-        if case let .loaded(restaurantsViewModels) = viewModel.state {
-            XCTAssertTrue(restaurantsViewModels[0].name == "Papa johns")
-            XCTAssertTrue(restaurantsViewModels[1].name == "KFC")
+        if case let .loaded(restaurants) = viewModel.state {
+            XCTAssertTrue(restaurants[0].name == "Papa johns")
+            XCTAssertTrue(restaurants[1].name == "KFC")
         } else {
-            XCTFail("Expected presenter state to be loaded")
+            XCTFail("Expected state to be loaded")
         }
     }
     
@@ -73,11 +77,11 @@ final class RestaurantsListPresenterTests: XCTestCase {
         viewModel.didSelectSegmentAtIndex = selectedIndex
         
         //Then
-        if case let .loaded(restaurantsViewModels) = viewModel.state {
-            XCTAssertTrue(restaurantsViewModels[0].name == "KFC")
-            XCTAssertTrue(restaurantsViewModels[1].name == "Papa johns")
+        if case let .loaded(restaurants) = viewModel.state {
+            XCTAssertTrue(restaurants[0].name == "KFC")
+            XCTAssertTrue(restaurants[1].name == "Papa johns")
         } else {
-            XCTFail("Expected presenter state to be loaded")
+            XCTFail("Expected state to be loaded")
         }
     }
     
@@ -91,11 +95,11 @@ final class RestaurantsListPresenterTests: XCTestCase {
         viewModel.didSelectSegmentAtIndex = selectedIndex
         
         //Then
-        if case let .loaded(restaurantsViewModels) = viewModel.state {
-            XCTAssertTrue(restaurantsViewModels[0].name == "KFC")
-            XCTAssertTrue(restaurantsViewModels[1].name == "Papa johns")
+        if case let .loaded(restaurants) = viewModel.state {
+            XCTAssertTrue(restaurants[0].name == "KFC")
+            XCTAssertTrue(restaurants[1].name == "Papa johns")
         } else {
-            XCTFail("Expected presenter state to be loaded")
+            XCTFail("Expected state to be loaded")
         }
     }
     
